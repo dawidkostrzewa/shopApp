@@ -2,6 +2,47 @@ import { Moon } from '../Icon/Moon';
 import Style from '../Nav/Nav.module.scss';
 import { useState } from 'react';
 
+//
+
+import Badge, { BadgeProps } from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 10,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+    minWidth: '15px',
+    width: '15px',
+    height: '15px',
+    fontSize: '11px',
+  },
+}));
+
+function CustomizedBadges() {
+  return (
+    <IconButton
+      aria-label="cart"
+      sx={{
+        padding: '5px 3px',
+
+        '& .MuiSvgIcon-root': {
+          margin: '0px',
+          fontSize: '18px',
+        },
+      }}
+    >
+      <StyledBadge badgeContent={4} color="secondary">
+        <ShoppingCartIcon />
+      </StyledBadge>
+    </IconButton>
+  );
+}
+
+//
 const Nav = ({ setCurrentStep }) => {
   const [stanNav, setStanNav] = useState(false);
   const STEPS = ['Home', 'Store', 'Cart'];
@@ -16,6 +57,8 @@ const Nav = ({ setCurrentStep }) => {
         }}
       >
         {step}
+
+        {step == 'Cart' ? CustomizedBadges() : ''}
       </li>
     );
   });
@@ -25,7 +68,7 @@ const Nav = ({ setCurrentStep }) => {
       <>
         <ul className={Style.wrapNav}>{btn}</ul>
         <div className={Style.wrapSing}>
-          <button className={Style.btnSing}>Sing in</button>
+          <button className={Style.btnSing}>Sing in </button>
           <button className={Style.btnDay}>
             <Moon />
           </button>

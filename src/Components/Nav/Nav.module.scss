@@ -98,6 +98,8 @@
   padding: 10px 20px;
   font-size: 1.4rem;
   line-height: 1.5em;
+  min-width: 40px;
+  min-height: 40px;
   cursor: pointer;
   @media (max-width: 720px) {
     width: 100%;
