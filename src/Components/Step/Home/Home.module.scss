@@ -1,8 +1,6 @@
 .wrap {
   margin: 0 auto;
   width: 80%;
-  // height: 100vh;
-
   overflow: hidden;
 }
 
@@ -12,21 +10,15 @@
   transform: translateX(-50%);
   width: 100%;
   height: 70vh;
-
-  // display: flex;
-  // align-items: center;
-  // overflow: hidden;
 }
 .wrapSlider {
+  height: 100%;
+  width: 140%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 140%;
-  // width: 120%;
 }
 
 .wrapProduct {
@@ -39,31 +31,109 @@
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  background-size: cover;
+  background-position: center;
 }
 
 .wrapImg {
   width: 100%;
   height: 50%;
-  position: relative;
-  overflow: hidden;
-  display: flex;
   background-size: cover;
   background-position: center;
+  position: relative;
 }
-//
-
-.img {
+.wrapDescription {
+  height: 50%;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  // justify-content: space-between;
+  // align-content: start;
+}
+.descriptionTitle {
   width: 100%;
   height: fit-content;
-  transform: translateY(-15%);
+  margin: 5px 0;
+  font-size: 1.8rem;
+  line-height: 2em;
 }
+
+.description {
+  display: block;
+  height: 6em;
+  width: 100%;
+  font-size: 1.4rem;
+  color: #999;
+  line-height: 1.5em;
+  overflow: hidden;
+  position: relative;
+}
+
+.wrapPrince {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prince {
+  font-size: 2.4rem;
+}
+
+.btnAdd {
+  border-radius: 5px;
+  background-color: #238be6;
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 2.5em;
+  padding: 0px 10px;
+}
+//
+.category {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  font-size: 1.2rem;
+  color: #eee;
+  text-shadow: 0 0 20px #aaa;
+}
+.categoryTitle {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-shadow: 0 0 20px #aaa;
+  color: #fff;
+}
+.btnCategoryGo {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  padding: 5px 10px;
+  color: #333;
+  font-size: 1.8rem;
+  line-height: 1.5em;
+  font-weight: bold;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 7px 0.5px #ddd;
+  cursor: pointer;
+}
+.btnCategoryGo:hover {
+  box-shadow: 0 0 10px 5px #ddd;
+  background-color: #ffffffa7;
+}
+
+//
 
 .btnArrow {
   position: absolute;
   top: 50%;
   left: 0;
   opacity: 0;
-  transition: all 0.5s linear;
+  transition: all 0.3s linear;
 }
 
 .suggestions:hover > .btnArrow,
@@ -82,44 +152,5 @@
   box-shadow: 0 0 5px 0px;
   border-radius: 30px;
   cursor: pointer;
-  opacity: 1;
-}
-
-.wrapDescription {
-  height: 50%;
-  padding: 5px 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.descriptionTitle {
-  width: 100%;
-  margin: 5px 0;
-  font-size: 1.6rem;
-}
-
-.description {
-  width: 100%;
-  height: 30%;
-  margin: 5px 0;
-  font-size: 1.2rem;
-  color: #999;
-  line-height: 1.5em;
-  overflow: hidden;
-}
-.prince {
-  font-size: 1.8rem;
-}
-
-.btnAdd {
-  padding: 0px 10px;
-  display: block;
-  width: fit-content;
-  border-radius: 5px;
-  background-color: #238be6;
-  color: #fff;
-  // display: flex;
-  // align-items: center;
-  font-size: 1.4rem;
-  line-height: 1.5em;
+  background-color: #ffffff55;
 }

@@ -36,6 +36,7 @@ interface Img {
 }
 
 const Img = (img: Img) => {
+  console.log(img);
   const [stepImg, setStepImg] = useState(0);
   const arrayImg = img.img;
 
@@ -85,10 +86,12 @@ const Suggested = () => {
         <div className={Style.wrapDescription}>
           <p className={Style.descriptionTitle}>{product.title}</p>
           <p className={Style.description}>{product.description}</p>
-          <p className={Style.prince}>{product.price}</p>
-          <button className={Style.btnAdd} onClick={() => console.log('ok')}>
-            Learn More Now!
-          </button>
+          <div className={Style.wrapPrince}>
+            <p className={Style.prince}>{product.price} $</p>
+            <button className={Style.btnAdd} onClick={() => console.log('ok')}>
+              Learn More Now!
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -133,13 +136,21 @@ const Category = () => {
   const element = (step: number) => {
     if (categories.length == 0) return;
     const product = categories[step];
+
     return (
       <>
-        <div className={Style.wrapProduct} key={product.id}>
-          <img className={Style.img} src={product.image} alt="" />
-          <p>{product.name}</p>
-          <button className={Style.btn} onClick={() => console.log('ok')}>
-            OK
+        <div
+          className={`${Style.wrapProduct}`}
+          key={product.id}
+          style={{ backgroundImage: `url(${product.image})` }}
+        >
+          <p className={Style.category}>CATEGORY:</p>
+          <p className={Style.categoryTitle}>{product.name}</p>
+          <button
+            className={Style.btnCategoryGo}
+            onClick={() => console.log('ok')}
+          >
+            GO to store
           </button>
         </div>
       </>
