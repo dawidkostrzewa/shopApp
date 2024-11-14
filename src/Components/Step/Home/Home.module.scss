@@ -8,9 +8,12 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
   height: 70vh;
+  width: fit-content;
+  display: flex;
+  align-items: center;
 }
+
 .wrapSlider {
   height: 100%;
   width: 140%;
@@ -35,61 +38,6 @@
   background-position: center;
 }
 
-.wrapImg {
-  width: 100%;
-  height: 50%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-.wrapDescription {
-  height: 50%;
-  padding: 10px 20px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  // justify-content: space-between;
-  // align-content: start;
-}
-.descriptionTitle {
-  width: 100%;
-  height: fit-content;
-  margin: 5px 0;
-  font-size: 1.8rem;
-  line-height: 2em;
-}
-
-.description {
-  display: block;
-  height: 6em;
-  width: 100%;
-  font-size: 1.4rem;
-  color: #999;
-  line-height: 1.5em;
-  overflow: hidden;
-  position: relative;
-}
-
-.wrapPrince {
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.prince {
-  font-size: 2.4rem;
-}
-
-.btnAdd {
-  border-radius: 5px;
-  background-color: #238be6;
-  color: #fff;
-  font-size: 1.4rem;
-  line-height: 2.5em;
-  padding: 0px 10px;
-}
-//
 .category {
   position: absolute;
   top: 10%;
@@ -127,17 +75,17 @@
 }
 
 //
-
+//
 .btnArrow {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: 0;
-  opacity: 0;
+  left: 0%;
+  opacity: 1;
   transition: all 0.3s linear;
 }
-
-.suggestions:hover > .btnArrow,
-.wrapImg:hover > .btnArrow {
+.suggestions:hover {
+}
+.suggestions:hover > .btnArrow {
   opacity: 1;
 }
 .btnLeft {
