@@ -1,10 +1,12 @@
 // import { dividerClasses } from '@mui/material';
 import { api } from '../../Nav/API/API';
+// import { Img } from '../../Utilis/Img/Img';
 
 import Style from '../Home/Home.module.scss';
 import { useState, useEffect } from 'react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { CardItem } from '../../Utilis/CardItem/CardItem';
 
 {
   // import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
@@ -18,7 +20,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
           /> */
 }
 
-interface Product {
+export interface Product {
   id: number;
   title: string;
   price: number;
@@ -31,40 +33,39 @@ interface Product {
   images: string[];
 }
 
-interface Img {
-  img: string[];
-}
+// interface Img {
+//   img: string[];
+// }
 
-const Img = (img: Img) => {
-  console.log(img);
-  const [stepImg, setStepImg] = useState(0);
-  const arrayImg = img.img;
+// export const Img = (img: Img) => {
+//   const [stepImg, setStepImg] = useState(0);
+//   const arrayImg = img.img;
 
-  return (
-    <div
-      style={{ backgroundImage: `url(${arrayImg[stepImg]})` }}
-      className={Style.wrapImg}
-    >
-      {/* <img className={Style.img} src={`${arrayImg[stepImg]}`} alt="" /> */}
-      <button
-        className={Style.btnArrow}
-        onClick={() => {
-          setStepImg(stepImg == 0 ? arrayImg.length - 1 : stepImg - 1);
-        }}
-      >
-        <ArrowBackIosNewIcon className={Style.arrow} sx={{ fontSize: 30 }} />
-      </button>
-      <button
-        className={`${Style.btnArrow} ${Style.btnLeft}`}
-        onClick={() => {
-          setStepImg(stepImg == arrayImg.length - 1 ? 0 : stepImg + 1);
-        }}
-      >
-        <ArrowForwardIosIcon className={Style.arrow} sx={{ fontSize: 30 }} />
-      </button>
-    </div>
-  );
-};
+//   return (
+//     <div
+//       style={{ backgroundImage: `url(${arrayImg[stepImg]})` }}
+//       className={Style.wrapImg}
+//     >
+//       {/* <img className={Style.img} src={`${arrayImg[stepImg]}`} alt="" /> */}
+//       <button
+//         className={Style.btnArrow}
+//         onClick={() => {
+//           setStepImg(stepImg == 0 ? arrayImg.length - 1 : stepImg - 1);
+//         }}
+//       >
+//         <ArrowBackIosNewIcon className={Style.arrow} sx={{ fontSize: 30 }} />
+//       </button>
+//       <button
+//         className={`${Style.btnArrow} ${Style.btnLeft}`}
+//         onClick={() => {
+//           setStepImg(stepImg == arrayImg.length - 1 ? 0 : stepImg + 1);
+//         }}
+//       >
+//         <ArrowForwardIosIcon className={Style.arrow} sx={{ fontSize: 30 }} />
+//       </button>
+//     </div>
+//   );
+// };
 
 const Suggested = () => {
   const [step, setStep] = useState(0);
@@ -72,37 +73,28 @@ const Suggested = () => {
 
   useEffect(() => {
     api('products').then((result) => {
-      setProducts(result);
+      setProducts(result.slice(0, 8));
     });
   }, []);
 
-  const element = (step: number) => {
-    if (products.length == 0) return;
-    const product = products[step];
-
+  const element = products.map((product) => {
     return (
-      <div className={Style.wrapProduct} key={product.id}>
-        <Img img={product.images} />
-        <div className={Style.wrapDescription}>
-          <p className={Style.descriptionTitle}>{product.title}</p>
-          <p className={Style.description}>{product.description}</p>
-          <div className={Style.wrapPrince}>
-            <p className={Style.prince}>{product.price} $</p>
-            <button className={Style.btnAdd} onClick={() => console.log('ok')}>
-              Learn More Now!
-            </button>
-          </div>
-        </div>
-      </div>
+      <>
+        <CardItem data={product} />
+      </>
     );
-  };
+  });
+
   return (
     <>
-      <div className={Style.wrapSlider}>
-        {element(step == 0 ? products.length - 1 : step - 1)}
-        {element(step)}
-        {element(step == products.length - 1 ? 0 : step + 1)}
-      </div>
+      <>
+        {element}
+        {/* {products.length > 0 && <CardItem data={products[step]} />} */}
+        {/* {products.length > 0 && <CardItem product={products[step]} />} */}
+        {/* {element(step == 0 ? products.length - 1 : step - 1)} */}
+        {/* {element(step)} */}
+        {/* {element(step == products.length - 1 ? 0 : step + 1)} */}
+      </>
       <button
         className={Style.btnArrow}
         onClick={() => {
@@ -184,6 +176,23 @@ const Category = () => {
   );
 };
 
+// const Tile = () => {
+//   const [products, setProducts] = useState<Product[]>([]);
+//   useEffect(() => {
+//     api('products').then((result) => {
+//       setProducts(result);
+//     });
+//   }, []);
+//   const element = products.map((product) => {
+//     return (
+//       <>
+//         <CardItem data={product} />
+//       </>
+//     );
+//   });
+//   return <div className={Style.wrapTile}>{element}</div>;
+// };
+
 const Home = () => {
   return (
     <div className={Style.wrap}>
@@ -191,7 +200,7 @@ const Home = () => {
         <Suggested />
       </div>
 
-      <div className={Style.suggestions}>
+      <div className={Style}>
         <Category />
       </div>
     </div>
