@@ -14,8 +14,13 @@ export interface Product {
   images: string[];
 }
 
-export const CardItem = (data: Product) => {
-  const product = data.data;
+type CardItemProps = {
+  data: Product;
+  otherData: string;
+};
+
+export const CardItem = ({ data }: CardItemProps) => {
+  const product = data;
 
   return (
     <div className={Style.wrapProduct} key={product.id}>

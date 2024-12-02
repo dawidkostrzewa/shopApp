@@ -1,7 +1,7 @@
 import { Moon } from '../Icon/Moon';
 import Style from '../Nav/Nav.module.scss';
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 //
 
 import Badge, { BadgeProps } from '@mui/material/Badge';
@@ -44,6 +44,7 @@ function CustomizedBadges() {
 
 //
 const Nav = ({ setCurrentStep }) => {
+  const navigate = useNavigate();
   const [stanNav, setStanNav] = useState(false);
   const STEPS = ['Home', 'Store', 'Cart'];
 
@@ -52,7 +53,8 @@ const Nav = ({ setCurrentStep }) => {
       <li
         className={Style.nameElement}
         onClick={() => {
-          setCurrentStep(step);
+          navigate(`${step}`);
+          // setCurrentStep(step);
           setStanNav(false);
         }}
       >

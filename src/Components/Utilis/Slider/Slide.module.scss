@@ -1,0 +1,71 @@
+.cos button:before {
+  color: transparent;
+
+
+}
+
+
+.cos:hover>button:before {
+  color: #ccc;
+  font-size: 35px;
+  text-shadow: 0 0 2px #ddd;
+}
+
+
+
+.cos :global(.slick-prev) {
+  left: 0;
+  z-index: 10;
+}
+
+.cos :global(.slick-next) {
+  right: 13px;
+  z-index: 10;
+}
+
+.slider-container {
+  margin: 0 10px;
+}
+
+.wrapImg button:before {
+  color: #ccc;
+  font-size: 30px;
+  text-shadow: 0 0 1px #333;
+
+}
+
+.wrapImg :global(.slick-prev) {
+  left: 0px;
+  z-index: 10;
+
+}
+
+.wrapImg :global(.slick-next) {
+  right: 10px;
+  z-index: 10;
+}
+
+.wrapImg :global(.slick-dots) {
+  bottom: 0px;
+
+  li {
+    background-color: #ccc;
+    border-radius: 50px;
+    height: 4px;
+    width: 10px;
+    margin-right: 5px;
+  }
+
+  // z-index: 10;
+  ::before {
+    font-size: 0;
+
+  }
+
+
+
+}
+
+.wrapImg :global(.slick-dots .slick-active) {
+  width: 20px;
+}

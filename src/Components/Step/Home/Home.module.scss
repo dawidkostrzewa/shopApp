@@ -4,6 +4,11 @@
   overflow: hidden;
 }
 
+.cos {
+  width: 100%;
+  // overflow:inherit;
+}
+
 .suggestions {
   position: relative;
   left: 50%;
@@ -46,6 +51,7 @@
   color: #eee;
   text-shadow: 0 0 20px #aaa;
 }
+
 .categoryTitle {
   position: absolute;
   top: 15%;
@@ -55,6 +61,7 @@
   text-shadow: 0 0 20px #aaa;
   color: #fff;
 }
+
 .btnCategoryGo {
   position: absolute;
   bottom: 10%;
@@ -69,12 +76,12 @@
   box-shadow: 0 0 7px 0.5px #ddd;
   cursor: pointer;
 }
+
 .btnCategoryGo:hover {
   box-shadow: 0 0 10px 5px #ddd;
   background-color: #ffffffa7;
 }
 
-//
 //
 .btnArrow {
   position: fixed;
@@ -83,11 +90,13 @@
   opacity: 1;
   transition: all 0.3s linear;
 }
-.suggestions:hover {
-}
-.suggestions:hover > .btnArrow {
+
+.suggestions:hover {}
+
+.suggestions:hover>.btnArrow {
   opacity: 1;
 }
+
 .btnLeft {
   left: auto;
   right: 0;
@@ -101,4 +110,9 @@
   border-radius: 30px;
   cursor: pointer;
   background-color: #ffffff55;
+}
+
+.aaa {
+  background-color: red;
+ 
 }
