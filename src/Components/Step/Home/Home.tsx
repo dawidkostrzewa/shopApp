@@ -1,6 +1,5 @@
 
 import { api } from '../../Nav/API/API';
-import Style from '../Home/Home.module.scss';
 import { useState, useEffect } from 'react';
 import Box from '@mui/joy/Box';
 import { CenterMode, SimpleSlider } from '../../Utilis/Slider/Slide'
@@ -9,6 +8,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { CardMedia } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export interface Product {
   id: number;
@@ -26,9 +26,10 @@ export interface Product {
 
 const Suggested = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const navigate = useNavigate();
 
   const imgProduct = (photo: string[]) => {
-    const aaa = photo.map((element) => {
+    const photoCarousel = photo.map((element) => {
       return (
         <CardMedia
           component="img"
@@ -39,7 +40,7 @@ const Suggested = () => {
         />
       )
     })
-    return aaa
+    return photoCarousel
   }
 
   useEffect(() => {
@@ -58,12 +59,19 @@ const Suggested = () => {
           overflow: 'hidden',
           boxShadow: '0px 0px 10px 0.1px #eee',
           margin: '5px auto',
-
-
         }
         }>
-          {product.images.length <= 0 ? '' : <SimpleSlider> {imgProduct(product.images)}</SimpleSlider>}
+          {product.images.length <= 0 ? '' : <SimpleSlider>{imgProduct(product.images)}</SimpleSlider>}
           <CardContent>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                margin: '5px 0 ',
+                color: '#333'
+              }}
+            >
+              {product.title}
+            </Typography>
             <Typography
               variant="body2"
               sx={{
@@ -84,6 +92,9 @@ const Suggested = () => {
             <Button
               size="medium"
               variant="contained"
+              onClick={() =>
+                navigate(`/${product.id}`)
+              }
               sx={{
                 borderRadius: '10px',
                 backgroundColor: '#1871c2',
@@ -95,7 +106,6 @@ const Suggested = () => {
               Learn More Now!
             </Button>
           </CardContent >
-
         </ Card>
 
 
@@ -104,12 +114,14 @@ const Suggested = () => {
   });
   return (
     <>
-      <CenterMode>
+      <CenterMode numberViews={1}>
         {element}
       </CenterMode>
+
     </>
   );
 };
+
 
 const Category = () => {
   const [categories, setCategories] = useState<Product['category'][]>([]);
@@ -126,45 +138,52 @@ const Category = () => {
     return (
       <>  <Card sx={{
 
-        width: '85%',
+        width: '80%',
         height: '60vh',
         borderRadius: 3,
+        padding: '10% 5%',
+        boxSizing: 'border-box',
         overflow: 'hidden',
         boxShadow: '0px 0px 10px 0.1px #eee',
         margin: '20px auto',
         backgroundImage: `url(${category.image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-
+        display: 'flex',
+        flexDirection: 'column',
 
       }
       }>
+        <Typography variant="body1" sx={{
+          color: '#eee',
+          textShadow: ' 0 0 1px #bbb'
+        }} >
+          CATEGORY:
+        </Typography>
+        <Typography variant="h3" sx={{
+          color: '#eee',
+          flex: '1',
+          textShadow: ' 0 0 5px #777'
+        }} >
+          {category.name}
+        </Typography>
+        <Button
+          size="medium"
+          variant="contained"
+          sx={{
+            borderRadius: '10px',
+            backgroundColor: '#1871c2',
+            width: '40%',
+            minWidth: '150px',
+            '&:hover': {
+              backgroundColor: '#185EA5',
 
-
-
-
-        <CardContent
-          sx={{ display: 'flex', justifyContent: 'space-between' }}
+            },
+          }}
         >
-          <Button
-            size="medium"
-            variant="contained"
-            sx={{
-              borderRadius: '10px',
-              backgroundColor: '#1871c2',
-              '&:hover': {
-                backgroundColor: '#185EA5',
-              },
-            }}
-          >
-            Go to store
-          </Button>
-        </CardContent >
-
+          Go to store
+        </Button>
       </ Card >
-
-
-
       </ >
     );
   });
@@ -191,8 +210,6 @@ const Home = () => {
         sx={{
           margin: '5% auto',
           padding: ' 0 5%',
-
-
         }}
       >
         <Suggested />
@@ -213,54 +230,3 @@ const Home = () => {
 
 export default Home;
 
-// {
-//   const element = (step: number) => {
-//     if (categories.length == 0) return;
-//     const product = categories[step];
-
-//     return (
-//       <>
-//         <div
-//           className={`${Style.wrapProduct}`}
-//           key={product.id}
-//           style={{ backgroundImage: `url(${product.image})` }}
-//         >
-//           <p className={Style.category}>CATEGORY:</p>
-//           <p className={Style.categoryTitle}>{product.name}</p>
-//           <button
-//             className={Style.btnCategoryGo}
-//             onClick={() => console.log('ok')}
-//           >
-//             GO to store
-//           </button>
-//         </div>
-//       </>
-//     );
-//   };
-//   return (
-//     <>
-//       <div className={Style.wrapSlider}>
-//         {element(step == 0 ? categories.length - 1 : step - 1)}
-//         {element(step)}
-//         {element(step == categories.length - 1 ? 0 : step + 1)}
-//       </div>
-
-//       <button
-//         className={Style.btnArrow}
-//         onClick={() => {
-//           setStep(step == 0 ? categories.length - 1 : step - 1);
-//         }}
-//       >
-//         <ArrowBackIosNewIcon className={Style.arrow} sx={{ fontSize: 30 }} />
-//       </button>
-//       <button
-//         className={`${Style.btnArrow} ${Style.btnLeft}`}
-//         onClick={() => {
-//           setStep(step == categories.length - 1 ? 0 : step + 1);
-//         }}
-//       >
-//         <ArrowForwardIosIcon className={Style.arrow} sx={{ fontSize: 30 }} />
-//       </button>
-//     </>
-//   );
-// }

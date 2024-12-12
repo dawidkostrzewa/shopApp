@@ -15,6 +15,9 @@ import Button from '@mui/joy/Button';
 import BedtimeOutlinedIcon from '@mui/icons-material/BedtimeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 
+
+
+
 const Header = () => {
   const [value, setValue] = React.useState('');
   const navigate = useNavigate();
@@ -62,12 +65,19 @@ const Header = () => {
               centered
               aria-label="disabled tabs example"
               selectionFollowsFocus // strzałki automatycznie ładują przycisk po najechaniu
-              // orientation="vertical"
+            // orientation="vertical"
             >
               <Tab label="Home" value="Home" />
               <Tab label="Store" value="Store" />
-              <Tab label="Cart" value="Cart" />
+              <Tab label={`Cart`} value="Cart" />
+              <Tabs
+                value="Cart"
+                sx={{ cursor: 'pointer' }}
+              >
+                <Typography level="h4">Cart</Typography>
+              </Tabs>
             </Tabs>
+
           </Box>
         </Grid>
         <Grid container>

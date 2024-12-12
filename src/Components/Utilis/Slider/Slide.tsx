@@ -4,36 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 export function CenterMode({ numberViews = 1, children }: { numberViews: number, children: React.ReactNode }) {
-  // const settings = {
-  //   className: 'center',
-  //   centerMode: true,
-  //   infinite: true,
-  //   centerPadding: '200px',
-  //   slidesToShow: 3,
-  //   speed: 500,
-  // responsive: [
-  //   {
-  //     breakpoint: 600,
-  //     settings: {
-  //       slidesToShow: 2,
-  //       slidesToScroll: 2,
-  //       initialSlide: 2
-  //     }
-  //   },
-  //   {
-  //     breakpoint: 480,
-  //     settings: {
-  //       slidesToShow: 1,
-  //       slidesToScroll: 1
-  //     }
-  //   }
-  // ]
-
-  // };
-
-
   const settings = {
-
     infinite: true,
     speed: 500,
     slidesToShow: numberViews,
@@ -42,7 +13,17 @@ export function CenterMode({ numberViews = 1, children }: { numberViews: number,
     slidesToScroll: numberViews,
     responsive: [
       {
-        breakpoint: 600,
+        breakpoint: 1024,
+        settings: {
+          centerMode: false,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+
+
+        }
+      },
+      {
+        breakpoint: 720,
         settings: {
           centerMode: false,
           slidesToShow: 1,
@@ -57,14 +38,12 @@ export function CenterMode({ numberViews = 1, children }: { numberViews: number,
   };
   return (
     <div className="slider-container">
-      <Slider {...settings} className={Style.cos}>
+      <Slider {...settings} className={Style.wrapBtn}>
         {children}
       </Slider>
     </div>
   );
 }
-
-
 
 // focusOnSelect responsive  variableWidth
 
@@ -81,11 +60,11 @@ export function SimpleSlider({ children }: { children: React.ReactNode }) {
 
   };
   return (
-    <div className="slider-container ">
-      <Slider {...settings} className={Style.wrapImg}>
-        {children}
-      </Slider>
-    </div>
+
+    <Slider {...settings} className={Style.wrapImg}>
+      {children}
+    </Slider>
+
   );
 }
 

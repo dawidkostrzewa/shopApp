@@ -54,16 +54,16 @@ const Nav = ({ setCurrentStep }) => {
         className={Style.nameElement}
         onClick={() => {
           navigate(`${step}`);
-          // setCurrentStep(step);
           setStanNav(false);
         }}
       >
         {step}
-
-        {step == 'Cart' ? CustomizedBadges() : ''}
       </li>
+
     );
   });
+
+  // {step === 'Cart' ? CustomizedBadges() : ''}
 
   const elementNav = () => {
     return (

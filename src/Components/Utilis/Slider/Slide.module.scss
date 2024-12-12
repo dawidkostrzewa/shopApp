@@ -1,24 +1,19 @@
-.cos button:before {
+.wrapBtn button:before {
   color: transparent;
-
-
 }
 
-
-.cos:hover>button:before {
+.wrapBtn:hover>button:before {
   color: #ccc;
   font-size: 35px;
   text-shadow: 0 0 2px #ddd;
 }
 
-
-
-.cos :global(.slick-prev) {
+.wrapBtn :global(.slick-prev) {
   left: 0;
   z-index: 10;
 }
 
-.cos :global(.slick-next) {
+.wrapBtn :global(.slick-next) {
   right: 13px;
   z-index: 10;
 }
@@ -38,6 +33,7 @@
   left: 0px;
   z-index: 10;
 
+
 }
 
 .wrapImg :global(.slick-next) {
@@ -56,16 +52,21 @@
     margin-right: 5px;
   }
 
-  // z-index: 10;
   ::before {
     font-size: 0;
-
   }
-
-
-
 }
 
 .wrapImg :global(.slick-dots .slick-active) {
   width: 20px;
+
+}
+
+.wrapImg {
+  height: 100%;
+
+  div {
+    height: 100%;
+  }
+
 }
