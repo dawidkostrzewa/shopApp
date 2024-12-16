@@ -13,13 +13,13 @@ import { useState } from 'react';
 
 export type ShoppingCart = { id: number; quantity: number }[];
 
-const Layout = () => {
+const Layout = ({ shoppingCart }: { shoppingCart: ShoppingCart }) => {
 
   return (
     <div>
       {/* A "layout route" is a good place to put markup you want to
       share across all the pages on your site, like navigation. */}
-      <Header />
+      <Header shoppingCart={shoppingCart} />
       {/* An <Outlet> renders whatever child route is currently active,
       so you can think about this <Outlet> as a placeholder for
       the child routes we defined above. */}
@@ -33,8 +33,10 @@ const Layout = () => {
 function App() {
   const [shoppingCart, setShoppingCart] = useState<ShoppingCart[]>([])
 
-  const statusCart = (e: number, updateQuantity: number) => {
 
+  // console.log(shoppingCart.map((e) => e.quantity))
+
+  const statusCart = (e: number, updateQuantity: number) => {
     if (updateQuantity === 1) {
       setShoppingCart(prevCart =>
         prevCart
@@ -52,9 +54,8 @@ function App() {
 
     }
     else {
-      setShoppingCart((prevCart) => {
-        if (prevCart.some(item => item.id === e)) {
-
+      setShoppingCart((prevCart: ShoppingCart) => {
+        if (prevCart?.some(item => item.id === e)) {
           return (
             prevCart.map(item =>
               item.id === e
@@ -78,7 +79,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<Layout shoppingCart={shoppingCart} />}>
         <Route index element={<Home />} />
         <Route path="Home" element={<Home />} />
         <Route path="Store" element={<Store shoppingCart={shoppingCart} statusCart={statusCart} />} />

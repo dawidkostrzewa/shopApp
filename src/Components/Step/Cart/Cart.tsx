@@ -11,92 +11,123 @@ import AddIcon from '@mui/icons-material/Add';
 
 
 
-const Cart = ({ shoppingCart, statusCart }: ShoppingCart) => {
+
+const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, statusCart: number, }) => {
+
+  const [total, setTotal] = useState(0);
+  const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
 
 
+
+
+
+
+  useEffect(() => {
+    shoppingCart.map((productBasket) => {
+      api(`products/${productBasket.id}`).then((result) => {
+        const productWithQuantity = { ...result, stanBasket: { quantity: productBasket.quantity, id: productBasket.id } };
+
+        setWrapProduct((prevProducts) => {
+          if (prevProducts.some((product) => product.stanBasket.id === productBasket.id)) return prevProducts
+          else {
+            return [...prevProducts, productWithQuantity]
+          }
+        }
+        );
+      });
+
+    })
+
+
+  }, [shoppingCart]);
+
+  const basketObject = () => {
+    return (
+      wrapProduct.map((product) => {
+        return (
+          <CardContent sx={{
+            display: 'flex'
+
+          }}>
+            <Box>
+              <CardMedia
+                component="img"
+                height='100px'
+                width='100px'
+                image={product.images[0]}
+                alt=''
+                sx={{
+                  display: 'block'
+                }}
+              />
+            </Box>
+            <Box sx={
+              {
+                flex: 1,
+                margin: '0 3%',
+                color: '#333'
+              }
+            }>
+              <Typography variant="h6" gutterBottom>
+                {product.title}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                ${product.price}
+              </Typography>
+            </Box>
+
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center'
+            }} >
+              <Button size="small" variant="contained" sx={{
+                textTransform: 'none',
+              }}
+                onClick={() => {
+                  statusCart(product.stanBasket.id, 0)
+                }}
+              >Remove</Button>
+
+              <Button
+                aria-label="reduce"
+                onClick={() => {
+                  statusCart(product.stanBasket.id, 1)
+                }}
+              >
+                <RemoveIcon fontSize="small" />
+              </Button>
+              <Typography variant="h6" gutterBottom>
+                {product.stanBasket.quantity}
+              </Typography>
+              <Button
+                aria-label="increase"
+                onClick={() => {
+                  statusCart(product.stanBasket.id)
+                }}
+              >
+                <AddIcon fontSize="small" />
+              </Button></Box>
+          </CardContent >
+        )
+      }
+      )
+    )
+  }
+
+
+
+  useEffect(() => {
+    const totalSum = wrapProduct.map((e) => e.price * e.stanBasket.quantity).reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    setTotal(totalSum);
+  }, [wrapProduct])
 
   const ProductList = () => shoppingCart.length == 0 ?
     <Typography variant="h6" gutterBottom>
       Your cart is empty.
     </Typography>
-    : shoppingCart.map((productBasket) => {
-      const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
-      useEffect(() => {
-        api(`products/${productBasket.id}`).then((result) => {
-          setWrapProduct(result);
-        });
-      }, []);
-      if (wrapProduct.length == 0) return
-      return (
-        <CardContent sx={{
-          display: 'flex'
-
-        }}>
-          <Box>
-            <CardMedia
-              component="img"
-              height='100px'
-              width='100px'
-              image={wrapProduct.images[0]}
-              alt=''
-              sx={{
-                display: 'block'
-              }}
-            />
-          </Box>
-
-          <Box sx={
-            {
-              flex: 1,
-              margin: '0 3%',
-              color: '#333'
-            }
-          }>
-            <Typography variant="h6" gutterBottom>
-              {wrapProduct.title}
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              ${wrapProduct.price}
-            </Typography>
-          </Box>
-
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center'
-          }} >
-            <Button size="small" variant="contained" sx={{
-              textTransform: 'none',
-            }}
-              onClick={() => {
-                statusCart(productBasket.id, 0)
-              }}
-            >Remove</Button>
-
-            <Button
-              aria-label="reduce"
-              onClick={() => {
-                statusCart(productBasket.id, 1)
-              }}
-            >
-              <RemoveIcon fontSize="small" />
-            </Button>
-            <Typography variant="h6" gutterBottom>
-              {productBasket.quantity}
-            </Typography>
-            <Button
-              aria-label="increase"
-              onClick={() => {
-                statusCart(productBasket.id)
-              }}
-            >
-              <AddIcon fontSize="small" />
-            </Button></Box>
-
-        </CardContent>
-      )
-    })
-
-
+    : <>{basketObject()}<Typography variant="body1" gutterBottom>
+      ${total}
+    </Typography></>
 
 
   return (
@@ -112,6 +143,7 @@ const Cart = ({ shoppingCart, statusCart }: ShoppingCart) => {
         Shopping Cart
       </Typography>
       <Card>
+
         <ProductList />
       </Card>
     </Container>

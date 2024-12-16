@@ -1,8 +1,5 @@
-// import React from 'react';
-// import Style from '../Header/Header.module.scss';
-// import Nav from '../Nav/Nav';
+
 import { useState } from 'react';
-// import Nav from '../Nav/Nav';
 
 import Typography from '@mui/joy/Typography';
 import Tabs from '@mui/material/Tabs';
@@ -14,14 +11,35 @@ import Grid from '@mui/joy/Grid';
 import Button from '@mui/joy/Button';
 import BedtimeOutlinedIcon from '@mui/icons-material/BedtimeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { styled } from '@mui/material/styles';
+import Badge, { BadgeProps } from '@mui/material/Badge';
+import { ShoppingCart } from '../../App'
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));
 
 
-
-
-const Header = () => {
+const Header = ({ shoppingCart }: { shoppingCart: ShoppingCart }) => {
   const [value, setValue] = React.useState('');
   const navigate = useNavigate();
   const [isNightMode, setIsNightMode] = useState(false);
+
+
+
+  const statusIcon = shoppingCart
+    .map((item: ShoppingCart[number]) => item.quantity)
+    .reduce((acc: number, curr: number) => acc + curr, 0);
+
+
+
+
 
   const handleButtonClick = () => {
     setIsNightMode(!isNightMode);
@@ -36,7 +54,6 @@ const Header = () => {
       <Grid
         container
         spacing={3}
-        // sx={{ flexGrow: 1 }}
         sx={{
           margin: '0 auto',
           width: '95%',
@@ -69,14 +86,12 @@ const Header = () => {
             >
               <Tab label="Home" value="Home" />
               <Tab label="Store" value="Store" />
-              <Tab label={`Cart`} value="Cart" />
-              <Tabs
-                value="Cart"
-                sx={{ cursor: 'pointer' }}
-              >
-                <Typography level="h4">Cart</Typography>
-              </Tabs>
+              <Tab iconPosition="end" label="Cart" value="Cart" icon={
+                <StyledBadge badgeContent={statusIcon} color='primary'>
+                  <ShoppingCartIcon />
+                </StyledBadge>} />
             </Tabs>
+
 
           </Box>
         </Grid>
@@ -91,7 +106,7 @@ const Header = () => {
             {isNightMode ? <BedtimeOutlinedIcon /> : <LightModeOutlinedIcon />}
           </Button>
         </Grid>
-      </Grid>
+      </Grid >
     </>
   );
 };
