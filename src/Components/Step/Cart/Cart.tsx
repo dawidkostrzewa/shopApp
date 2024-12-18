@@ -10,12 +10,11 @@ import AddIcon from '@mui/icons-material/Add';
 
 
 
-
-
 const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, statusCart: number, }) => {
 
   const [total, setTotal] = useState(0);
   const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
+
 
 
 
@@ -39,11 +38,12 @@ const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, status
     })
 
 
-  }, [shoppingCart]);
+  }, [shoppingCart,]);
 
   const basketObject = () => {
     return (
       wrapProduct.map((product) => {
+        console.log(product.id, shoppingCart)
         return (
           <CardContent sx={{
             display: 'flex'
@@ -97,7 +97,11 @@ const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, status
                 <RemoveIcon fontSize="small" />
               </Button>
               <Typography variant="h6" gutterBottom>
-                {product.stanBasket.quantity}
+                {shoppingCart.map(id => {
+                  if (id.id === product.id) return id.quantity
+                  else return ''
+                })}
+
               </Typography>
               <Button
                 aria-label="increase"
@@ -121,6 +125,9 @@ const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, status
     setTotal(totalSum);
   }, [wrapProduct])
 
+
+
+
   const ProductList = () => shoppingCart.length == 0 ?
     <Typography variant="h6" gutterBottom>
       Your cart is empty.
@@ -143,9 +150,9 @@ const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, status
         Shopping Cart
       </Typography>
       <Card>
-
         <ProductList />
       </Card>
+
     </Container>
   )
 }

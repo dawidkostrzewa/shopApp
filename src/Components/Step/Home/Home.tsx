@@ -123,7 +123,8 @@ const Suggested = () => {
 };
 
 
-const Category = () => {
+const Category = ({ setSelectedCategories }) => {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<Product['category'][]>([]);
 
 
@@ -170,6 +171,11 @@ const Category = () => {
         <Button
           size="medium"
           variant="contained"
+          onClick={() => {
+            navigate('/Store');
+            setSelectedCategories(() => category.id)
+            
+          }}
           sx={{
             borderRadius: '10px',
             backgroundColor: '#1871c2',
@@ -203,7 +209,7 @@ const Category = () => {
 
 };
 
-const Home = () => {
+const Home = ({ setSelectedCategories }) => {
   return (
     <>
       <Box
@@ -220,7 +226,7 @@ const Home = () => {
           padding: ' 0 5%',
         }}
       >
-        <Category />
+        <Category setSelectedCategories={setSelectedCategories} />
       </Box>
 
     </>

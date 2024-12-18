@@ -2,12 +2,8 @@ import { Moon } from '../Icon/Moon';
 import Style from '../Nav/Nav.module.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//
-
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -22,28 +18,9 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   },
 }));
 
-function CustomizedBadges() {
-  return (
-    <IconButton
-      aria-label="cart"
-      sx={{
-        padding: '5px 3px',
 
-        '& .MuiSvgIcon-root': {
-          margin: '0px',
-          fontSize: '18px',
-        },
-      }}
-    >
-      <StyledBadge badgeContent={4} color="secondary">
-        <ShoppingCartIcon />
-      </StyledBadge>
-    </IconButton>
-  );
-}
 
-//
-const Nav = ({ setCurrentStep }) => {
+const Nav = () => {
   const navigate = useNavigate();
   const [stanNav, setStanNav] = useState(false);
   const STEPS = ['Home', 'Store', 'Cart'];
@@ -63,7 +40,6 @@ const Nav = ({ setCurrentStep }) => {
     );
   });
 
-  // {step === 'Cart' ? CustomizedBadges() : ''}
 
   const elementNav = () => {
     return (

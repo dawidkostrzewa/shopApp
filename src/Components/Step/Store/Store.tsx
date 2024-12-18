@@ -247,8 +247,8 @@ const Products = ({ shoppingCart, selectedCategories, statusCart }: number) => {
 
 }
 
-const Store = ({ statusCart, shoppingCart }) => {
-  const [selectedCategories, setSelectedCategories] = useState<number>(0);
+const Store = ({ statusCart, shoppingCart, selectedCategories, setSelectedCategories }) => {
+  // const [selectedCategories, setSelectedCategories] = useState<number>(0);
   return (
     <Box sx={
       {
@@ -296,21 +296,3 @@ const Store = ({ statusCart, shoppingCart }) => {
 export default Store;
 
 
-// {
-//   <Typography variant='subtitle1'
-//   sx={{
-//     width: 'fit-content',
-//     marginTop: '2px',
-//     padding: '5px',
-//     borderLeft: ' 1px solid #ccc',
-//     borderRadius: '5px',
-//     cursor: 'pointer',
-//     '&:hover': {
-//       background: '#eee',
-
-
-//     }
-//   }}>
-//   {category.name}
-// </Typography >
-// }
