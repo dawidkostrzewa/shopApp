@@ -1,8 +1,8 @@
 
-import { api } from '../../Nav/API/API';
+import { api } from '../../API/API';
 import { useState, useEffect } from 'react';
 import Box from '@mui/joy/Box';
-import { CenterMode, SimpleSlider } from '../../Utilis/Slider/Slide'
+import { CenterMode, SimpleSlider } from '../../Utils/Slider/Slide'
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -174,7 +174,7 @@ const Category = ({ setSelectedCategories }) => {
           onClick={() => {
             navigate('/Store');
             setSelectedCategories(() => category.id)
-            
+
           }}
           sx={{
             borderRadius: '10px',

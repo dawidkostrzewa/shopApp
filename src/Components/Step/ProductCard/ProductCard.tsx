@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Product } from '../Home/Home';
-import { api } from '../../Nav/API/API';
+import { api } from '../../API/API';
 import { Button, Card, Container, Typography } from '@mui/material';
 import { Box } from '@mui/joy';
-import { SimpleSlider } from '../../Utilis/Slider/Slide'
+import { SimpleSlider } from '../../Utils/Slider/Slide'
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useNavigate } from 'react-router-dom';

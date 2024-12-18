@@ -96,7 +96,10 @@ const Header = ({ shoppingCart }: { shoppingCart: ShoppingCart }) => {
           </Box>
         </Grid>
         <Grid container>
-          <Button>Sing in</Button>
+          <Button onClick={() => {
+            navigate('/Sign');
+            setValue('');
+          }} >Sing in</Button>
           <Button
             onClick={handleButtonClick}
             variant="outlined"

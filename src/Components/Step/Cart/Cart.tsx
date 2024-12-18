@@ -3,7 +3,7 @@ import { ShoppingCart } from '../../../App'
 import { Box } from '@mui/joy'
 import { Product } from '../Home/Home'
 import { useState, useEffect } from 'react';
-import { api } from '../../Nav/API/API';
+import { api } from '../../API/API';
 
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';

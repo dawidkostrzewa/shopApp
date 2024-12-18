@@ -1,11 +1,11 @@
 
-import { api } from '../../Nav/API/API';
+import { api } from '../../API/API';
 import { useState, useEffect } from 'react';
 import { Product } from '../Home/Home';
 import { Box } from '@mui/joy';
 import { Button, Card, CardContent, Typography } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import { SimpleSlider } from '../../Utilis/Slider/Slide'
+import { SimpleSlider } from '../../Utils/Slider/Slide'
 import { CardMedia } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';

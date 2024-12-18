@@ -3,10 +3,11 @@ import Home from './Components/Step/Home/Home';
 import Store from './Components/Step/Store/Store';
 import Cart from './Components/Step/Cart/Cart';
 import HomeProductCard from './Components/Step/ProductCard/ProductCard';
-
+import Sign from './Components/Step/Sign/Sign';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Header from './Components/Header/Header';
 import { useState } from 'react';
+
 export type ShoppingCart = { id: number; quantity: number }[];
 
 const Layout = ({ shoppingCart }: { shoppingCart: ShoppingCart }) => {
@@ -68,10 +69,6 @@ function App() {
 
 
 
-
-
-
-
   return (
     <Routes>
       <Route path="/" element={<Layout shoppingCart={shoppingCart} />}>
@@ -80,6 +77,7 @@ function App() {
         <Route path="Store" element={<Store shoppingCart={shoppingCart} statusCart={statusCart} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />} />
         <Route path="Cart" element={<Cart shoppingCart={shoppingCart} statusCart={statusCart} />} />
         <Route path=":id" element={<HomeProductCard shoppingCart={shoppingCart} statusCart={statusCart} />} />
+        <Route path="Sign" element={<Sign />} />
       </Route>
     </Routes>
   );
