@@ -13,12 +13,13 @@ import { useNavigate } from 'react-router-dom';
 
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import { ShoppingCart } from '../../../App';
 
 
 
 
 
-const AllCategories = ({ setSelectedCategories }) => {
+const AllCategories = ({ setSelectedCategories }: { setSelectedCategories: (categories: number) => void }) => {
   const [categories, setCategories] = useState<Product['category'][]>([]);
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const AllCategories = ({ setSelectedCategories }) => {
 
 }
 
-const Products = ({ shoppingCart, selectedCategories, statusCart }: number) => {
+const Products = ({ updateCart, shoppingCart, selectedCategories }: { updateCart: (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => void, shoppingCart: ShoppingCart[], selectedCategories: number, }) => {
   const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
   const navigate = useNavigate();
 
@@ -173,7 +174,8 @@ const Products = ({ shoppingCart, selectedCategories, statusCart }: number) => {
                     variant="outlined"
                     size="small"
                     onClick={() => {
-                      statusCart(shoppingCart.filter(e => e.id === product.id)[0].id, 1)
+                      // statusCart(shoppingCart.filter(e => e.id === product.id)[0].id, 1);
+                      updateCart(product.id, 'MINUS')
                     }}
                     sx={{
                       width: '30px',
@@ -191,7 +193,8 @@ const Products = ({ shoppingCart, selectedCategories, statusCart }: number) => {
                     variant="outlined"
                     size="small"
                     onClick={() => {
-                      statusCart(shoppingCart.filter(e => e.id === product.id)[0].id)
+                      // statusCart(shoppingCart.filter(e => e.id === product.id)[0].id);
+                      updateCart(product.id, 'PLUS')
                     }}
                     sx={{
                       width: '30px',
@@ -206,7 +209,8 @@ const Products = ({ shoppingCart, selectedCategories, statusCart }: number) => {
                   size="medium"
                   variant="contained"
                   onClick={() => {
-                    statusCart(product.id)
+                    // statusCart(product.id);
+                    updateCart(product.id, 'PLUS')
                   }}
                   sx={{
                     textTransform: 'none',
@@ -247,8 +251,7 @@ const Products = ({ shoppingCart, selectedCategories, statusCart }: number) => {
 
 }
 
-const Store = ({ statusCart, shoppingCart, selectedCategories, setSelectedCategories }) => {
-  // const [selectedCategories, setSelectedCategories] = useState<number>(0);
+const Store = ({ updateCart, shoppingCart, selectedCategories, setSelectedCategories }: { shoppingCart: ShoppingCart[], selectedCategories: number, setSelectedCategories: (categories: number) => void, updateCart: (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => void }) => {
   return (
     <Box sx={
       {
@@ -286,7 +289,7 @@ const Store = ({ statusCart, shoppingCart, selectedCategories, setSelectedCatego
         width: '80%',
 
       }} >
-        <Products shoppingCart={shoppingCart} selectedCategories={selectedCategories} statusCart={statusCart} />
+        <Products updateCart={updateCart} shoppingCart={shoppingCart} selectedCategories={selectedCategories} />
       </Box>
     </Box>
 

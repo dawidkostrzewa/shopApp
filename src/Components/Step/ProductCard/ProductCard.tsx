@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import { ShoppingCart } from '../../../App';
 
 
 const imgProduct = (photo: string[]) => {
@@ -28,7 +29,7 @@ const imgProduct = (photo: string[]) => {
 }
 
 
-const ProductCard = ({ statusCart, shoppingCart }) => {
+const ProductCard = ({ shoppingCart, updateCart }: { shoppingCart: ShoppingCart[], updateCart: (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => void }) => {
     const [product, setProduct] = useState<Product>();;
     const params = useParams();
     const navigate = useNavigate();
@@ -108,7 +109,7 @@ const ProductCard = ({ statusCart, shoppingCart }) => {
                                         variant="outlined"
                                         size="small"
                                         onClick={() => {
-                                            statusCart(shoppingCart.filter(e => e.id === product.id)[0].id, 1)
+                                            updateCart(product.id, 'MINUS')
                                         }}
                                         sx={{
                                             width: '30px',
@@ -120,13 +121,14 @@ const ProductCard = ({ statusCart, shoppingCart }) => {
                                         <RemoveIcon fontSize="small" />
                                     </Button>
                                     <Typography variant="h6" gutterBottom>
+                                        {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
                                         {shoppingCart.filter(e => e.id === product.id)[0].quantity}
                                     </Typography>
                                     <Button
                                         variant="outlined"
                                         size="small"
                                         onClick={() => {
-                                            statusCart(shoppingCart.filter(e => e.id === product.id)[0].id)
+                                            updateCart(product.id, 'PLUS')
                                         }}
                                         sx={{
                                             width: '30px',
@@ -141,7 +143,7 @@ const ProductCard = ({ statusCart, shoppingCart }) => {
                                     size="medium"
                                     variant="contained"
                                     onClick={() => {
-                                        statusCart(product.id)
+                                        updateCart(product.id, 'PLUS')
                                     }}
                                     sx={{
                                         textTransform: 'none',

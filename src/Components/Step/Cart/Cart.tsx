@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 type CardItemProduct = Product & { quantity: number }
 
-const Cart = ({ shoppingCart, statusCart, updateCart }: { shoppingCart: ShoppingCart[], statusCart: number, updateCart:(id: number, updateAction: "PLUS" | "MINUS" | "DELETE")=>void }) => {
+const Cart = ({ shoppingCart, updateCart }: { shoppingCart: ShoppingCart[], updateCart: (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => void }) => {
 
   const [wrapProduct, setWrapProduct] = useState<CardItemProduct[]>([]);
 
@@ -140,7 +140,7 @@ const Cart = ({ shoppingCart, statusCart, updateCart }: { shoppingCart: Shopping
 
 
 
- 
+
   const totalSum = wrapProduct.map((e) => e.price * e.quantity).reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
 

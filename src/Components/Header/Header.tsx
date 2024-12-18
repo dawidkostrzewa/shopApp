@@ -14,7 +14,7 @@ import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled } from '@mui/material/styles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
-import { ShoppingCart } from '../../App'
+
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -26,20 +26,10 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 }));
 
 
-const Header = ({ shoppingCart }: { shoppingCart: ShoppingCart }) => {
+const Header = ({ totalQuantity }: { totalQuantity: number }) => {
   const [value, setValue] = React.useState('');
   const navigate = useNavigate();
   const [isNightMode, setIsNightMode] = useState(false);
-
-
-
-  const statusIcon = shoppingCart
-    .map((item: ShoppingCart[number]) => item.quantity)
-    .reduce((acc: number, curr: number) => acc + curr, 0);
-
-
-
-
 
   const handleButtonClick = () => {
     setIsNightMode(!isNightMode);
@@ -87,7 +77,7 @@ const Header = ({ shoppingCart }: { shoppingCart: ShoppingCart }) => {
               <Tab label="Home" value="Home" />
               <Tab label="Store" value="Store" />
               <Tab iconPosition="end" label="Cart" value="Cart" icon={
-                <StyledBadge badgeContent={statusIcon} color='primary'>
+                <StyledBadge badgeContent={totalQuantity} color='primary'>
                   <ShoppingCartIcon />
                 </StyledBadge>} />
             </Tabs>

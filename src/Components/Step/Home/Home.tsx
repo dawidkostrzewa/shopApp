@@ -123,7 +123,7 @@ const Suggested = () => {
 };
 
 
-const Category = ({ setSelectedCategories }) => {
+const Category = ({ setSelectedCategories }: { setSelectedCategories: (categories: number) => void }) => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Product['category'][]>([]);
 
@@ -173,7 +173,7 @@ const Category = ({ setSelectedCategories }) => {
           variant="contained"
           onClick={() => {
             navigate('/Store');
-            setSelectedCategories(() => category.id)
+            setSelectedCategories(category.id)
 
           }}
           sx={{
@@ -209,7 +209,7 @@ const Category = ({ setSelectedCategories }) => {
 
 };
 
-const Home = ({ setSelectedCategories }) => {
+const Home = ({ setSelectedCategories }: { setSelectedCategories: (categories: number) => void }) => {
   return (
     <>
       <Box
