@@ -9,36 +9,54 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
 
+type CardItemProduct = Product & { quantity: number }
 
-const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, statusCart: number, }) => {
+const Cart = ({ shoppingCart, statusCart, updateCart }: { shoppingCart: ShoppingCart[], statusCart: number, updateCart:(id: number, updateAction: "PLUS" | "MINUS" | "DELETE")=>void }) => {
 
-  const [total, setTotal] = useState(0);
-  const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
-
-
+  const [wrapProduct, setWrapProduct] = useState<CardItemProduct[]>([]);
 
 
 
+
+  const getProductData = async () => {
+    const productsPromises: Promise<Product>[] = shoppingCart.map((productBasket) => api(`products/${productBasket.id}`))
+    const productsData = await Promise.all(productsPromises)
+    console.log("PRODUCTS", productsData)
+
+    const producutsWithQuantity = productsData.map(p => {
+      return {
+        ...p,
+        quantity: shoppingCart.find(sC => sC.id === p.id)?.quantity || 0
+      }
+    })
+
+    console.log(producutsWithQuantity)
+
+    setWrapProduct(producutsWithQuantity)
+
+
+  }
 
 
   useEffect(() => {
-    shoppingCart.map((productBasket) => {
-      api(`products/${productBasket.id}`).then((result) => {
-        const productWithQuantity = { ...result, stanBasket: { quantity: productBasket.quantity, id: productBasket.id } };
+    // shoppingCart.map((productBasket) => {
+    //   api(`products/${productBasket.id}`).then((result) => {
+    //     const productWithQuantity = { ...result, stanBasket: { quantity: productBasket.quantity, id: productBasket.id } };
 
-        setWrapProduct((prevProducts) => {
-          if (prevProducts.some((product) => product.stanBasket.id === productBasket.id)) return prevProducts
-          else {
-            return [...prevProducts, productWithQuantity]
-          }
-        }
-        );
-      });
+    //     setWrapProduct((prevProducts) => {
+    //       if (prevProducts.some((product) => product.stanBasket.id === productBasket.id)) return prevProducts
+    //       else {
+    //         return [...prevProducts, productWithQuantity]
+    //       }
+    //     }
+    //     );
+    //   });
 
-    })
+    // })
 
 
-  }, [shoppingCart,]);
+    getProductData()
+  }, [shoppingCart]);
 
   const basketObject = () => {
     return (
@@ -54,7 +72,7 @@ const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, status
                 component="img"
                 height='100px'
                 width='100px'
-                image={product.images[0]}
+                image={product.images?.[0]}
                 alt=''
                 sx={{
                   display: 'block'
@@ -84,29 +102,31 @@ const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, status
                 textTransform: 'none',
               }}
                 onClick={() => {
-                  statusCart(product.stanBasket.id, 0)
+                  updateCart(product.id, 'DELETE')
                 }}
               >Remove</Button>
 
               <Button
                 aria-label="reduce"
                 onClick={() => {
-                  statusCart(product.stanBasket.id, 1)
+                  // statusCart(product.id, 1)
+                  updateCart(product.id, 'MINUS')
                 }}
               >
                 <RemoveIcon fontSize="small" />
               </Button>
               <Typography variant="h6" gutterBottom>
-                {shoppingCart.map(id => {
+                {/* {shoppingCart.map(id => {
                   if (id.id === product.id) return id.quantity
                   else return ''
-                })}
-
+                })} */}
+                {product.quantity}
               </Typography>
               <Button
                 aria-label="increase"
                 onClick={() => {
-                  statusCart(product.stanBasket.id)
+                  // statusCart(product.id)
+                  updateCart(product.id, 'PLUS')
                 }}
               >
                 <AddIcon fontSize="small" />
@@ -120,11 +140,8 @@ const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, status
 
 
 
-  useEffect(() => {
-    const totalSum = wrapProduct.map((e) => e.price * e.stanBasket.quantity).reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-    setTotal(totalSum);
-  }, [wrapProduct])
-
+ 
+  const totalSum = wrapProduct.map((e) => e.price * e.quantity).reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
 
 
@@ -133,7 +150,7 @@ const Cart = ({ shoppingCart, statusCart }: { shoppingCart: ShoppingCart, status
       Your cart is empty.
     </Typography>
     : <>{basketObject()}<Typography variant="body1" gutterBottom>
-      ${total}
+      ${totalSum}
     </Typography></>
 
 

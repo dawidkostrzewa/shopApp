@@ -8,7 +8,8 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import Header from './Components/Header/Header';
 import { useState } from 'react';
 
-export type ShoppingCart = { id: number; quantity: number }[];
+// TODO: change to CartItem
+export type ShoppingCart = { id: number; quantity: number };
 
 const Layout = ({ shoppingCart }: { shoppingCart: ShoppingCart }) => {
 
@@ -28,9 +29,51 @@ const Layout = ({ shoppingCart }: { shoppingCart: ShoppingCart }) => {
 
 
 function App() {
+
+  // TODO: przenieść do Context
   const [shoppingCart, setShoppingCart] = useState<ShoppingCart[]>([])
   const [selectedCategories, setSelectedCategories] = useState<number>(0);
 
+
+  const updateCart = (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => {
+    const updatedShoppingCart = [...shoppingCart];
+
+    const itemInCartIndex = updatedShoppingCart.findIndex(cI => cI.id === id);
+
+    // Item nie znaleziono
+    if (itemInCartIndex === -1) {
+      const newCarItem:ShoppingCart = {id: id, quantity: 1}
+      setShoppingCart(prev => [...prev, newCarItem])
+      return;
+    }
+
+    if (updateAction === 'PLUS') {
+      const findedElement = updatedShoppingCart[itemInCartIndex]
+      findedElement.quantity = findedElement.quantity + 1
+      setShoppingCart(updatedShoppingCart);
+      return;
+    }
+
+    if (updateAction === 'MINUS') {
+      const findedElement = updatedShoppingCart[itemInCartIndex]
+      findedElement.quantity = findedElement.quantity - 1;
+
+      if (findedElement.quantity <= 0) {
+        const newCart = updatedShoppingCart.filter(cI => cI.id !== id)
+        setShoppingCart(newCart);
+        return
+      }
+
+      setShoppingCart(updatedShoppingCart);
+      return;
+    }
+
+    if (updateAction === 'DELETE') {
+      const newCart = updatedShoppingCart.filter(cI => cI.id !== id)
+      setShoppingCart(newCart);
+      return
+    }
+  }
 
   const statusCart = (e: number, updateQuantity: number) => {
     if (updateQuantity === 1) {
@@ -75,7 +118,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="Home" element={<Home setSelectedCategories={setSelectedCategories} />} />
         <Route path="Store" element={<Store shoppingCart={shoppingCart} statusCart={statusCart} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />} />
-        <Route path="Cart" element={<Cart shoppingCart={shoppingCart} statusCart={statusCart} />} />
+        <Route path="Cart" element={<Cart shoppingCart={shoppingCart} statusCart={statusCart} updateCart={updateCart} />} />
         <Route path=":id" element={<HomeProductCard shoppingCart={shoppingCart} statusCart={statusCart} />} />
         <Route path="Sign" element={<Sign />} />
       </Route>
