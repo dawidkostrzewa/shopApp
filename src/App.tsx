@@ -3,7 +3,7 @@ import Home from './Components/Step/Home/Home';
 import Store from './Components/Step/Store/Store';
 import Cart from './Components/Step/Cart/Cart';
 import HomeProductCard from './Components/Step/ProductCard/ProductCard';
-import Sign from './Components/Step/Sign/Sign';
+import Sign from './Components/Step/SingIn/SingIn';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Header from './Components/Header/Header';
 import { useState } from 'react';
@@ -30,11 +30,9 @@ const Layout = ({ totalQuantity }: { totalQuantity: number }) => {
 
 function App() {
 
-  // TODO: przenieść do Context
+  // TODO: przenieść do Context !!!!!!!!!!!!!!!!!!!!!!!!!!!
   const [shoppingCart, setShoppingCart] = useState<ShoppingCart[]>([])
   const [selectedCategories, setSelectedCategories] = useState<number>(0);
-
-
 
 
   const updateCart = (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => {
