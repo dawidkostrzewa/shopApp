@@ -14,6 +14,7 @@ import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled } from '@mui/material/styles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
+import { useAppContext } from '../../Context/AppContext';
 
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
@@ -26,7 +27,14 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 }));
 
 
-const Header = ({ totalQuantity }: { totalQuantity: number }) => {
+
+const Header = () => {
+  const { cartItem } = useAppContext()
+
+  const totalQuantity: number = cartItem
+    .map((item) => item.quantity)
+    .reduce((acc: number, curr: number) => acc + curr, 0);
+
   const [value, setValue] = React.useState('');
   const navigate = useNavigate();
   const [isNightMode, setIsNightMode] = useState(false);
@@ -64,6 +72,7 @@ const Header = ({ totalQuantity }: { totalQuantity: number }) => {
           </Tabs>
         </Grid>
         <Grid>
+          {/* zmienić tab na link !!!!!*/}
           <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
             {/* <Typography level="h1">Mantine</Typography> */}
             <Tabs
@@ -74,7 +83,8 @@ const Header = ({ totalQuantity }: { totalQuantity: number }) => {
               selectionFollowsFocus // strzałki automatycznie ładują przycisk po najechaniu
             // orientation="vertical"
             >
-              <Tab label="Home" value="Home" />
+
+              <Tab label="Home" value="" />
               <Tab label="Store" value="Store" />
               <Tab iconPosition="end" label="Cart" value="Cart" icon={
                 <StyledBadge badgeContent={totalQuantity} color='primary'>

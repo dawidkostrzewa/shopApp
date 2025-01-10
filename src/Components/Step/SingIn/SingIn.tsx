@@ -4,6 +4,7 @@ import { Button, Container, Typography } from "@mui/material"
 import { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { useAppContext } from '../../../Context/AppContext';
 
 
 
@@ -16,7 +17,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
 import { Grid } from '@mui/joy';
-import { Value } from 'sass';
+
+
+
 
 
 const Sign = () => {
@@ -24,6 +27,7 @@ const Sign = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [formType, setFormType] = useState<boolean>(true);
     const [formData, setFormData] = useState<[email: string, password: string] | []>([]);
+    const { name } = useAppContext();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -37,103 +41,103 @@ const Sign = () => {
 
 
 
-    const Log = () => {
-        return (
-            <>
-                <TextField
-                    required
-                    label="Email"
-                />
-                <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                    <OutlinedInput
-                        id="outlined-adornment-password"
-                        type={showPassword ? 'text' : 'password'}
-                        endAdornment={
-                            <InputAdornment position="end" >
-                                <IconButton
+    // const Log = () => {
+    //     return (
+    //         <>
+    //             <TextField
+    //                 required
+    //                 label="Email"
+    //             />
+    //             <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
+    //                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+    //                 <OutlinedInput
+    //                     id="outlined-adornment-password"
+    //                     type={showPassword ? 'text' : 'password'}
+    //                     endAdornment={
+    //                         <InputAdornment position="end" >
+    //                             <IconButton
 
-                                    aria-label={
-                                        showPassword ? 'hide the password' : 'display the password'
-                                    }
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    onMouseUp={handleMouseUpPassword}
-                                    edge="end"
-                                >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        label="Password"
-                    />
-                </FormControl>
-            </>
+    //                                 aria-label={
+    //                                     showPassword ? 'hide the password' : 'display the password'
+    //                                 }
+    //                                 onClick={handleClickShowPassword}
+    //                                 onMouseDown={handleMouseDownPassword}
+    //                                 onMouseUp={handleMouseUpPassword}
+    //                                 edge="end"
+    //                             >
+    //                                 {showPassword ? <VisibilityOff /> : <Visibility />}
+    //                             </IconButton>
+    //                         </InputAdornment>
+    //                     }
+    //                     label="Password"
+    //                 />
+    //             </FormControl>
+    //         </>
 
-        )
-    }
+    //     )
+    // }
 
-    const Rejestr = () => {
-        return (
-            <>
-
-
-                <TextField
-                    required
-                    label="Email"
-                />
-                <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                    <OutlinedInput
-                        id="outlined-adornment-password"
-                        type={showPassword ? 'text' : 'password'}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label={
-                                        showPassword ? 'hide the password' : 'display the password'
-                                    }
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    onMouseUp={handleMouseUpPassword}
-                                    edge="end"
-                                >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        label="Password"
-                    />
-                </FormControl>
-                <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
-                    <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
-                    <OutlinedInput
-                        id="outlined-adornment-password"
-                        type={showPassword ? 'text' : 'password'}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label={
-                                        showPassword ? 'hide the password' : 'display the password'
-                                    }
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    onMouseUp={handleMouseUpPassword}
-                                    edge="end"
-                                >
-                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                        label="confirm password"
-                    />
-                </FormControl>
-
-            </>
-        )
+    // const Rejestr = () => {
+    //     return (
+    //         <>
 
 
-    }
+    //             <TextField
+    //                 required
+    //                 label="Email"
+    //             />
+    //             <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
+    //                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+    //                 <OutlinedInput
+    //                     id="outlined-adornment-password"
+    //                     type={showPassword ? 'text' : 'password'}
+    //                     endAdornment={
+    //                         <InputAdornment position="end">
+    //                             <IconButton
+    //                                 aria-label={
+    //                                     showPassword ? 'hide the password' : 'display the password'
+    //                                 }
+    //                                 onClick={handleClickShowPassword}
+    //                                 onMouseDown={handleMouseDownPassword}
+    //                                 onMouseUp={handleMouseUpPassword}
+    //                                 edge="end"
+    //                             >
+    //                                 {showPassword ? <VisibilityOff /> : <Visibility />}
+    //                             </IconButton>
+    //                         </InputAdornment>
+    //                     }
+    //                     label="Password"
+    //                 />
+    //             </FormControl>
+    //             <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
+    //                 <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
+    //                 <OutlinedInput
+    //                     id="outlined-adornment-password"
+    //                     type={showPassword ? 'text' : 'password'}
+    //                     endAdornment={
+    //                         <InputAdornment position="end">
+    //                             <IconButton
+    //                                 aria-label={
+    //                                     showPassword ? 'hide the password' : 'display the password'
+    //                                 }
+    //                                 onClick={handleClickShowPassword}
+    //                                 onMouseDown={handleMouseDownPassword}
+    //                                 onMouseUp={handleMouseUpPassword}
+    //                                 edge="end"
+    //                             >
+    //                                 {showPassword ? <VisibilityOff /> : <Visibility />}
+    //                             </IconButton>
+    //                         </InputAdornment>
+    //                     }
+    //                     label="confirm password"
+    //                 />
+    //             </FormControl>
+
+    //         </>
+    //     )
+
+
+    // }
 
 
 
@@ -141,10 +145,6 @@ const Sign = () => {
     return (
         <>
             <Container sx={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: "translate(-50%, -50%)",
                 height: '70vh',
                 display: 'flex',
                 justifyContent: 'space-around',
@@ -165,11 +165,12 @@ const Sign = () => {
                     autoComplete="off"
                 >
 
-                    {!formType ? <Typography variant="h5" gutterBottom sx={{
+                    {formType && <Typography variant="h5" gutterBottom sx={{
                         color: '#555'
                     }}>
                         Registration:
-                    </Typography> : ''}
+                    </Typography>}
+                    {name}
                     <TextField
                         required
                         label="Email"

@@ -1,17 +1,24 @@
+import { useAppContext } from '../../../Context/AppContext';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Product } from '../Home/Home';
 import { api } from '../../API/API';
-import { Button, Card, Container, Typography } from '@mui/material';
+import { Button, Card, Container, SxProps, Typography } from '@mui/material';
 import { Box } from '@mui/joy';
 import { SimpleSlider } from '../../Utils/Slider/Slide'
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useNavigate } from 'react-router-dom';
+import CartItemControls from '../../UpdateCart/CartItemControls';
+import CartItemAdd from '../../UpdateCart/CartItemAdd';
 
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
-import { ShoppingCart } from '../../../App';
+
+
+
+
+const boxStyle: SxProps = {
+    width: '30px',
+    margin: '10px',
+    minWidth: 'auto'
+}
 
 
 const imgProduct = (photo: string[]) => {
@@ -27,9 +34,8 @@ const imgProduct = (photo: string[]) => {
     })
     return photoCarousel
 }
-
-
-const ProductCard = ({ shoppingCart, updateCart }: { shoppingCart: ShoppingCart[], updateCart: (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => void }) => {
+const ProductCard = () => {
+    const { cartItem } = useAppContext();
     const [product, setProduct] = useState<Product>();;
     const params = useParams();
     const navigate = useNavigate();
@@ -41,6 +47,7 @@ const ProductCard = ({ shoppingCart, updateCart }: { shoppingCart: ShoppingCart[
     }, [params.id]);
 
     if (!product) return
+
     return (
         <>
             <Container sx={{
@@ -58,7 +65,9 @@ const ProductCard = ({ shoppingCart, updateCart }: { shoppingCart: ShoppingCart[
                     border: '1px #ccc solid',
                     borderRadius: '10px',
                     overflow: "hidden",
-                    padding: "4% 2%"
+                    padding: "4% 2%",
+                    aspectRatio: "16/9"
+
                 }}>
                     {product.images.length <= 0 ? '' : <SimpleSlider> {imgProduct(product.images)}</SimpleSlider>}
                 </Box>
@@ -87,79 +96,21 @@ const ProductCard = ({ shoppingCart, updateCart }: { shoppingCart: ShoppingCart[
                     }}>
                         {product.description}
                     </Typography>
-                    <Box sx={{
+                    <Box display={"flex"} justifyContent={"space-between"} sx={{
                         width: '100%',
                         display: "flex",
                         justifyContent: 'space-between',
                     }
                     }>
-                        <Typography variant="h5" gutterBottom sx={{ display: 'block' }}>
+                        <Typography variant="h5" component={"div"} gutterBottom sx={{ display: 'block' }}>
                             {product.price}$
                         </Typography>
 
                         {
-                            shoppingCart.some(e => e.id === product.id) ?
-                                <Box sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-
-
-                                }} >
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        onClick={() => {
-                                            updateCart(product.id, 'MINUS')
-                                        }}
-                                        sx={{
-                                            width: '30px',
-                                            margin: '10px',
-                                            minWidth: 'auto'
-                                        }}
-
-                                    >
-                                        <RemoveIcon fontSize="small" />
-                                    </Button>
-                                    <Typography variant="h6" gutterBottom>
-                                        {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
-                                        {shoppingCart.filter(e => e.id === product.id)[0].quantity}
-                                    </Typography>
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        onClick={() => {
-                                            updateCart(product.id, 'PLUS')
-                                        }}
-                                        sx={{
-                                            width: '30px',
-                                            margin: '10px',
-                                            minWidth: 'auto'
-                                        }}
-                                    >
-                                        <AddIcon fontSize="small" />
-                                    </Button></Box>
+                            cartItem.some(e => e.id === product.id) ?
+                                <CartItemControls id={product.id} />
                                 :
-                                <Button
-                                    size="medium"
-                                    variant="contained"
-                                    onClick={() => {
-                                        updateCart(product.id, 'PLUS')
-                                    }}
-                                    sx={{
-                                        textTransform: 'none',
-                                        borderRadius: '10px',
-                                        backgroundColor: '#1871c2',
-                                        '&:hover': {
-                                            backgroundColor: '#185EA5',
-                                        },
-                                    }}
-                                >
-                                    <ShoppingCartOutlinedIcon sx={{
-                                        fontSize: '1em',
-                                        marginRight: '5px'
-                                    }} />
-                                    Add to cart
-                                </Button>
+                                <CartItemAdd product={product} />
                         }
                     </Box>
 
@@ -176,5 +127,3 @@ const ProductCard = ({ shoppingCart, updateCart }: { shoppingCart: ShoppingCart[
 }
 
 export default ProductCard
-
-// startIcon={<ArrowLeftOutlinedIcon />}

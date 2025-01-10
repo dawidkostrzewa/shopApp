@@ -9,6 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { CardMedia } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../../Context/AppContext';
 
 export interface Product {
   id: number;
@@ -61,7 +62,7 @@ const Suggested = () => {
           margin: '5px auto',
         }
         }>
-          {product.images.length <= 0 ? '' : <SimpleSlider>{imgProduct(product.images)}</SimpleSlider>}
+          {product.images.length ? <SimpleSlider>{imgProduct(product.images)}</SimpleSlider> : undefined}
           <CardContent>
             <Typography
               variant="subtitle1"
@@ -113,17 +114,18 @@ const Suggested = () => {
     );
   });
   return (
-    <>
-      <CenterMode numberViews={1}>
-        {element}
-      </CenterMode>
 
-    </>
+    <CenterMode numberViews={1}>
+      {element}
+    </CenterMode>
+
+
   );
 };
 
 
-const Category = ({ setSelectedCategories }: { setSelectedCategories: (categories: number) => void }) => {
+const Category = () => {
+  const { setSelectedCategories } = useAppContext()
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Product['category'][]>([]);
 
@@ -209,7 +211,7 @@ const Category = ({ setSelectedCategories }: { setSelectedCategories: (categorie
 
 };
 
-const Home = ({ setSelectedCategories }: { setSelectedCategories: (categories: number) => void }) => {
+const Home = () => {
   return (
     <>
       <Box
@@ -226,7 +228,7 @@ const Home = ({ setSelectedCategories }: { setSelectedCategories: (categories: n
           padding: ' 0 5%',
         }}
       >
-        <Category setSelectedCategories={setSelectedCategories} />
+        <Category />
       </Box>
 
     </>

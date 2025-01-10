@@ -1,4 +1,4 @@
-
+import { useAppContext } from '../../../Context/AppContext';
 import { api } from '../../API/API';
 import { useState, useEffect } from 'react';
 import { Product } from '../Home/Home';
@@ -8,21 +8,23 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { SimpleSlider } from '../../Utils/Slider/Slide'
 import { CardMedia } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useNavigate } from 'react-router-dom';
 
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
-import { ShoppingCart } from '../../../App';
+import CartItemControls from '../../UpdateCart/CartItemControls';
+import CartItemAdd from '../../UpdateCart/CartItemAdd';
 
 
 
 
 
-const AllCategories = ({ setSelectedCategories }: { setSelectedCategories: (categories: number) => void }) => {
+
+
+const AllCategories = () => {
+  const { setSelectedCategories } = useAppContext()
   const [categories, setCategories] = useState<Product['category'][]>([]);
 
   useEffect(() => {
+    //TODO: uzyc async/await
     api('categories').then((result) => {
       setCategories(result);
     });
@@ -75,9 +77,10 @@ const AllCategories = ({ setSelectedCategories }: { setSelectedCategories: (cate
 
 }
 
-const Products = ({ updateCart, shoppingCart, selectedCategories }: { updateCart: (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => void, shoppingCart: ShoppingCart[], selectedCategories: number, }) => {
-  const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
+const Products = () => {
+  const { cartItem, selectedCategories } = useAppContext()
   const navigate = useNavigate();
+  const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
 
 
   const imgProduct = (photo: string[]) => {
@@ -97,7 +100,7 @@ const Products = ({ updateCart, shoppingCart, selectedCategories }: { updateCart
 
 
   useEffect(() => {
-    // api('products').then((result) => {
+
     api(selectedCategories === 0 ? 'products' : `products/?categoryId=${selectedCategories}`).then((result) => {
       setWrapProduct(result);
     });
@@ -161,76 +164,13 @@ const Products = ({ updateCart, shoppingCart, selectedCategories }: { updateCart
                 fontSize: '1.3em'
               }} />
             </Button>
-
             {
-              shoppingCart.some(e => e.id === product.id) ?
-                <Box sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-
-
-                }} >
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    onClick={() => {
-                      // statusCart(shoppingCart.filter(e => e.id === product.id)[0].id, 1);
-                      updateCart(product.id, 'MINUS')
-                    }}
-                    sx={{
-                      width: '30px',
-                      margin: '10px',
-                      minWidth: 'auto'
-                    }}
-
-                  >
-                    <RemoveIcon fontSize="small" />
-                  </Button>
-                  <Typography variant="h6" gutterBottom>
-                    {shoppingCart.filter(e => e.id === product.id)[0].quantity}
-                  </Typography>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    onClick={() => {
-                      // statusCart(shoppingCart.filter(e => e.id === product.id)[0].id);
-                      updateCart(product.id, 'PLUS')
-                    }}
-                    sx={{
-                      width: '30px',
-                      margin: '10px',
-                      minWidth: 'auto'
-                    }}
-                  >
-                    <AddIcon fontSize="small" />
-                  </Button></Box>
+              cartItem.some(e => e.id === product.id) ?
+                <CartItemControls id={product.id} />
                 :
-                <Button
-                  size="medium"
-                  variant="contained"
-                  onClick={() => {
-                    // statusCart(product.id);
-                    updateCart(product.id, 'PLUS')
-                  }}
-                  sx={{
-                    textTransform: 'none',
-                    borderRadius: '10px',
-                    backgroundColor: '#1871c2',
-                    '&:hover': {
-                      backgroundColor: '#185EA5',
-                    },
-                  }}
-                >
-                  <ShoppingCartOutlinedIcon sx={{
-                    fontSize: '1em',
-                    marginRight: '5px'
-                  }} />
-                  Add to cart
-                </Button>
+                <CartItemAdd product={product} />
+
             }
-
-
-
           </CardContent >
 
         </ Card >
@@ -251,7 +191,7 @@ const Products = ({ updateCart, shoppingCart, selectedCategories }: { updateCart
 
 }
 
-const Store = ({ updateCart, shoppingCart, selectedCategories, setSelectedCategories }: { shoppingCart: ShoppingCart[], selectedCategories: number, setSelectedCategories: (categories: number) => void, updateCart: (id: number, updateAction: "PLUS" | "MINUS" | "DELETE") => void }) => {
+const Store = () => {
   return (
     <Box sx={
       {
@@ -283,13 +223,13 @@ const Store = ({ updateCart, shoppingCart, selectedCategories, setSelectedCatego
           </Typography>
 
         </Box>
-        <AllCategories setSelectedCategories={setSelectedCategories} />
+        <AllCategories />
       </Box>
       <Box sx={{
         width: '80%',
 
       }} >
-        <Products updateCart={updateCart} shoppingCart={shoppingCart} selectedCategories={selectedCategories} />
+        <Products />
       </Box>
     </Box>
 
