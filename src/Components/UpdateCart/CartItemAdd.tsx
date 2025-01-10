@@ -8,17 +8,21 @@ import { CartProductBase } from '../../Context/AppContext';
 const CartItemAdd = ({ product }: { product: CartProductBase }) => {
     const updateCart = useUpdateCart()
 
+
+
     return (
         <Button
             size="medium"
             variant="contained"
             onClick={() => {
+
+
                 updateCart({
                     id: product.id,
                     updateAction: "PLUS",
                     title: product.title,
                     price: product.price,
-                    images: product.images?.[0]
+                    images: product.images
                 });
 
             }}

@@ -6,7 +6,7 @@ export type CartProductBase = {
     id: number;
     title?: string,
     price?: number,
-    images?: string | string[]
+    images?: string[]
 }
 export type CartItem = CartProductBase & {
     quantity: number

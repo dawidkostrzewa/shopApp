@@ -49,7 +49,6 @@ const CartItemControls = ({ id }: { id: number }) => {
                         id: id,
                         updateAction: "PLUS",
                     })
-                    // updateCart(id, 'PLUS')
                 }}
             >
                 <AddIcon fontSize="small" />

@@ -12,8 +12,7 @@ export const useUpdateCart = () => {
         const updatedShoppingCart = [...cartItem];
 
         const itemInCartIndex = updatedShoppingCart.findIndex(cI => cI.id === id);
-        console.log(itemInCartIndex)
-        console.log(updateAction)
+
         // Item nie znaleziono
         if (itemInCartIndex === -1) {
             const newCarItem: CartItem = { id: id, quantity: 1, title: title, price: price, images: images }
