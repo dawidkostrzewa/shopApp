@@ -9,9 +9,19 @@ export function CenterMode({ numberViews = 1, children }: { numberViews: number,
     speed: 500,
     slidesToShow: numberViews,
     centerMode: numberViews == 1 ? true : false,
-    centerPadding: '25%',
+    centerPadding: '35%',
     slidesToScroll: numberViews,
     responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          centerMode: false,
+          slidesToShow: 3,
+          slidesToScroll: 3,
+
+
+        }
+      },
       {
         breakpoint: 1024,
         settings: {
