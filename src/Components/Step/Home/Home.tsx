@@ -1,6 +1,4 @@
 
-import { api } from '../../API/API';
-import { useState, useEffect } from 'react';
 import Box from '@mui/joy/Box';
 import { CenterMode, SimpleSlider } from '../../Utils/Slider/Slide'
 import Button from '@mui/material/Button';
