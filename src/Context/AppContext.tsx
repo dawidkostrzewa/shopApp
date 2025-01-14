@@ -1,4 +1,28 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
+import { api } from '../Components/API/API';
+import { SxProps } from '@mui/material';
+
+
+export const CartStyle: SxProps = {
+    maxWidth: 300,
+    height: 'fit-content',
+    borderRadius: 3,
+    overflow: 'hidden',
+    boxShadow: '0px 0px 10px 0.1px #eee',
+    margin: '20px auto',
+}
+
+export const TitleStyle: SxProps = {
+    margin: '5px 0 ',
+    color: '#333'
+}
+export const DescriptionStyle: SxProps = {
+    color: 'text.secondary',
+    height: 100,
+    overflow: 'hidden',
+}
+
+
 
 export type Product = {
     id: number;
@@ -32,6 +56,10 @@ type AppContextProps = {
     setCartItem: React.Dispatch<React.SetStateAction<CartItem[]>>
     selectedCategories: number,
     setSelectedCategories: (setSelectedCategories: number) => void
+    categories: Product['category'][],
+    setCategories: (categories: Product['category'][]) => void,
+    wrapProduct: Product[],
+    setWrapProduct: (wrapProduct: Product[]) => void
 
 }
 
@@ -42,8 +70,17 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     const [userName, setUserName] = useState('Jarosław');
     const [cartItem, setCartItem] = useState<CartItem[]>([])
     const [selectedCategories, setSelectedCategories] = useState(0);
+    const [categories, setCategories] = useState<Product['category'][]>([]);
+    const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
 
-    console.log(cartItem)
+
+
+    useEffect(() => {
+        //TODO: uzyc async/await
+        api('categories').then((result) => {
+            setCategories(result);
+        });
+    }, []);
 
     return (
         <AppContext.Provider
@@ -53,7 +90,11 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
                 cartItem: cartItem,
                 setCartItem: setCartItem,
                 selectedCategories: selectedCategories,
-                setSelectedCategories: setSelectedCategories
+                setSelectedCategories: setSelectedCategories,
+                categories: categories,
+                setCategories: setCategories,
+                wrapProduct: wrapProduct,
+                setWrapProduct: setWrapProduct,
             }}
         >
             {children}

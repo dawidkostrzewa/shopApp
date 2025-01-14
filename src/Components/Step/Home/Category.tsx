@@ -1,23 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
 import { Button, Card, Typography } from "@mui/material";
-import { Product, useAppContext } from "../../../Context/AppContext";
-import { api } from "../../API/API";
+import { useAppContext } from "../../../Context/AppContext";
 import { CenterMode } from '../../Utils/Slider/Slide'
 
 
 const Category = () => {
-    const { setSelectedCategories } = useAppContext()
+    const { setSelectedCategories, categories } = useAppContext()
     const navigate = useNavigate();
-
-    const [categories, setCategories] = useState<Product['category'][]>([]);
-
-
-    useEffect(() => {
-        api('categories').then((result) => {
-            setCategories(result);
-        });
-    }, []);
 
     const element = categories.map((category) => {
 

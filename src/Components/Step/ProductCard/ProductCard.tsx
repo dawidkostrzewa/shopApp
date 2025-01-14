@@ -1,7 +1,7 @@
-import { useAppContext } from '../../../Context/AppContext';
+import { Product, useAppContext } from '../../../Context/AppContext';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Product } from '../Home/Home';
+
 import { api } from '../../API/API';
 import { Button, Card, Container, SxProps, Typography } from '@mui/material';
 import { Box } from '@mui/joy';

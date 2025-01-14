@@ -9,7 +9,7 @@ import { CardContent } from '@mui/material';
 
 import { api } from '../../API/API';
 import { CenterMode, SimpleSlider } from '../../Utils/Slider/Slide'
-import { Product } from '../../../Context/AppContext';
+import { CartStyle, Product } from '../../../Context/AppContext';
 import WrapImg from '../../Utils/Img/WrapImg';
 import { mapImgToComponents } from '../../Utils/Img/MapImgToComponents';
 
@@ -29,14 +29,7 @@ const Suggested = () => {
     const element = products.map((product) => {
         return (
             <>
-                <Card sx={{
-                    width: '300px',
-                    borderRadius: 3,
-                    overflow: 'hidden',
-                    boxShadow: '0px 0px 10px 0.1px #eee',
-                    margin: '5px auto',
-                }
-                }>
+                <Card sx={CartStyle}>
 
                     <WrapImg>
                         {product.images.length &&
