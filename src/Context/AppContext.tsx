@@ -20,6 +20,7 @@ export const DescriptionStyle: SxProps = {
     color: 'text.secondary',
     height: 100,
     overflow: 'hidden',
+    flex: 1
 }
 
 
@@ -81,6 +82,11 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             setCategories(result);
         });
     }, []);
+    useEffect(() => {
+        api(selectedCategories === 0 ? 'products' : `products/?categoryId=${selectedCategories}`).then((result) => {
+            setWrapProduct(result);
+        });
+    }, [selectedCategories]);
 
     return (
         <AppContext.Provider

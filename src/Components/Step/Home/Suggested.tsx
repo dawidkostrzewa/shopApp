@@ -70,7 +70,7 @@ const Suggested = () => {
                             size="medium"
                             variant="contained"
                             onClick={() =>
-                                navigate(`/ ${product.id}`)
+                                navigate(`/${product.id}`)
                             }
                             sx={{
                                 borderRadius: '10px',

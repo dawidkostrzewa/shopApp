@@ -1,7 +1,5 @@
 
 import { CartStyle, DescriptionStyle, TitleStyle, useAppContext } from '../../../Context/AppContext';
-import { api } from '../../API/API';
-import { useEffect } from 'react';
 import { Box } from '@mui/joy';
 import { Button, Card, CardContent, Typography } from '@mui/material';
 import { SimpleSlider } from '../../Utils/Slider/Slide'
@@ -15,15 +13,8 @@ import WrapImg from '../../Utils/Img/WrapImg';
 import { mapImgToComponents } from '../../Utils/Img/MapImgToComponents';
 
 const Products = () => {
-    const { cartItem, selectedCategories, wrapProduct, setWrapProduct } = useAppContext()
+    const { cartItem, wrapProduct, } = useAppContext()
     const navigate = useNavigate();
-
-    useEffect(() => {
-
-        api(selectedCategories === 0 ? 'products' : `products/?categoryId=${selectedCategories}`).then((result) => {
-            setWrapProduct(result);
-        });
-    }, [selectedCategories]);
 
     const element = wrapProduct.map((product) => {
         return (

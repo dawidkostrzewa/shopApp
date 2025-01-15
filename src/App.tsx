@@ -2,12 +2,12 @@
 import Home from './Components/Step/Home/Home';
 import Store from './Components/Step/Store/Store';
 import Cart from './Components/Step/Cart/Cart';
-import HomeProductCard from './Components/Step/ProductCard/ProductCard';
 import Sign from './Components/Step/SingIn/SingIn';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Header from './Components/Header/Header';
 
 import { AppProvider } from './Context/AppContext';
+import ProductCard from './Components/Step/ProductCard/ProductCard';
 
 // TODO: change to CartItem
 // export type ShoppingCart = { id: number; quantity: number };
@@ -44,7 +44,7 @@ function App() {
           <Route path="Home" element={<Home />} />
           <Route path="Store" element={<Store />} />
           <Route path="Cart" element={<Cart />} />
-          <Route path=":id" element={<HomeProductCard />} />
+          <Route path=":id" element={<ProductCard />} />
           <Route path="Sign" element={<Sign />} />
         </Route>
 
