@@ -1,32 +1,19 @@
-
-import { useState, useEffect } from 'react';
-
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { CardContent } from '@mui/material';
-
-import { api } from '../../API/API';
 import { CenterMode, SimpleSlider } from '../../Utils/Slider/Slide'
-import { CartStyle, Product } from '../../../Context/AppContext';
+import { CartStyle, useAppContext } from '../../../Context/AppContext';
 import WrapImg from '../../Utils/Img/WrapImg';
 import { mapImgToComponents } from '../../Utils/Img/MapImgToComponents';
 
 
 const Suggested = () => {
-    const [products, setProducts] = useState<Product[]>([]);
     const navigate = useNavigate();
+    const { wrapProduct } = useAppContext()
 
-
-
-    useEffect(() => {
-        api('products').then((result) => {
-            setProducts(result.slice(0, 8));
-        });
-    }, []);
-
-    const element = products.map((product) => {
+    const element = wrapProduct.slice(0, 8).map((product) => {
         return (
             <>
                 <Card sx={CartStyle}>

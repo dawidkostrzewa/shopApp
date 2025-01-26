@@ -5,14 +5,12 @@ import Cart from './Components/Step/Cart/Cart';
 import Sign from './Components/Step/SingIn/SingIn';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import Header from './Components/Header/Header';
-
 import { AppProvider } from './Context/AppContext';
 import ProductCard from './Components/Step/ProductCard/ProductCard';
+import Registration from './Components/Step/SingIn/Registration';
 
-// TODO: change to CartItem
-// export type ShoppingCart = { id: number; quantity: number };
 
-// const Layout = ({ totalQuantity }: { totalQuantity: number }) => {
+
 const Layout = () => {
 
   return (
@@ -20,7 +18,6 @@ const Layout = () => {
       {/* A "layout route" is a good place to put markup you want to
       share across all the pages on your site, like navigation. */}
       <Header />
-      {/* <Header totalQuantity={totalQuantity} /> */}
       {/* An <Outlet> renders whatever child route is currently active,
       so you can think about this <Outlet> as a placeholder for
       the child routes we defined above. */}
@@ -32,10 +29,6 @@ const Layout = () => {
 
 
 function App() {
-
-  // TODO: przenieść do Context !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
   return (
     <AppProvider>
       <Routes>
@@ -45,7 +38,8 @@ function App() {
           <Route path="Store" element={<Store />} />
           <Route path="Cart" element={<Cart />} />
           <Route path=":id" element={<ProductCard />} />
-          <Route path="Sign" element={<Sign />} />
+          <Route path="Sing" element={<Sign />} />
+          <Route path="Registration" element={<Registration />} />
         </Route>
 
       </Routes>

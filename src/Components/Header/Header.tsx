@@ -97,7 +97,7 @@ const Header = () => {
         </Grid>
         <Grid container>
           <Button onClick={() => {
-            navigate('/Sign');
+            navigate('/Sing');
             setValue('');
           }} >Sing in</Button>
           <Button

@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { api } from '../Components/API/API';
+import { fetchData } from '../Components/API/API';
 import { SxProps } from '@mui/material';
 
 
 export const CartStyle: SxProps = {
-    maxWidth: 300,
+    width: 300,
     height: 'fit-content',
     borderRadius: 3,
     overflow: 'hidden',
@@ -23,6 +23,21 @@ export const DescriptionStyle: SxProps = {
     flex: 1
 }
 
+export const ContainerLogin: SxProps = {
+    height: '70vh',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+}
+
+export const BoxLogin: SxProps = {
+    display: 'flex',
+    flexDirection: 'column',
+    boxShadow: '0 0 10px 1px  #ddd',
+    padding: '20px',
+    borderRadius: '5px',
+    '& .MuiTextField-root': { m: 1, width: '40ch' }
+}
 
 
 export type Product = {
@@ -48,11 +63,11 @@ export type CartItem = CartProductBase & {
     quantity: number
 };
 
+
+
 type AppContextProps = {
     name: string,
     setUserName: (name: string) => void,
-    // TODO: change to CartItem
-    // // export type ShoppingCart
     cartItem: CartItem[],
     setCartItem: React.Dispatch<React.SetStateAction<CartItem[]>>
     selectedCategories: number,
@@ -60,10 +75,9 @@ type AppContextProps = {
     categories: Product['category'][],
     setCategories: (categories: Product['category'][]) => void,
     wrapProduct: Product[],
-    setWrapProduct: (wrapProduct: Product[]) => void
+    setWrapProduct: (wrapProduct: Product[]) => void,
 
 }
-
 
 export const AppContext = createContext<AppContextProps | undefined>(undefined);
 
@@ -74,19 +88,32 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     const [categories, setCategories] = useState<Product['category'][]>([]);
     const [wrapProduct, setWrapProduct] = useState<Product[]>([]);
 
-
-
     useEffect(() => {
-        //TODO: uzyc async/await
-        api('categories').then((result) => {
-            setCategories(result);
-        });
+        const loadData = async () => {
+            try {
+                const result = await fetchData('categories');
+                setCategories(result);
+            } catch (error) {
+                console.error('An error occurred while retrieving data:', error);
+                throw error;
+            }
+        };
+        loadData();
     }, []);
+
     useEffect(() => {
-        api(selectedCategories === 0 ? 'products' : `products/?categoryId=${selectedCategories}`).then((result) => {
-            setWrapProduct(result);
-        });
+        const loadData = async () => {
+            try {
+                const result = await fetchData(selectedCategories === 0 ? 'products' : `products/?categoryId=${selectedCategories}`);
+                setWrapProduct(result);
+            } catch (error) {
+                console.error('An error occurred while retrieving data:', error);
+                throw error;
+            }
+        };
+        loadData();
     }, [selectedCategories]);
+
 
     return (
         <AppContext.Provider
@@ -101,6 +128,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
                 setCategories: setCategories,
                 wrapProduct: wrapProduct,
                 setWrapProduct: setWrapProduct,
+
             }}
         >
             {children}

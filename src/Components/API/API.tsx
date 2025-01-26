@@ -1,16 +1,13 @@
-//
 
-export const api = async (event: string) => {
-  // return fetch('https://api.escuelajs.co/api/v1/products')
-  return fetch(`https://api.escuelajs.co/api/v1/${event}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
+export const fetchData = async (endpoint: string) => {
+  try {
+    const response = await fetch(`https://api.escuelajs.co/api/v1/${endpoint}`);
+    if (!response.ok) throw new Error('Network response was not ok');
+    return await response.json();
 
-    .catch((error) => {
-      console.error('Wystąpił błąd podczas pobierania danych:', error);
-    });
-};
+  }
+  catch (error) {
+    console.error('An error occurred while retrieving data:', error);
+    throw error;
+  };
+}

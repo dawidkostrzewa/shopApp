@@ -21,7 +21,6 @@ export const useUpdateCart = () => {
         }
 
         if (updateAction === 'PLUS') {
-            console.log('plus')
             const findedElement = updatedShoppingCart[itemInCartIndex];
             findedElement.quantity = findedElement.quantity + 1;
             setCartItem(updatedShoppingCart);
