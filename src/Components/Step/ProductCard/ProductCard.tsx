@@ -1,4 +1,4 @@
-import { DescriptionStyle, Product, TitleStyle, useAppContext } from '../../../Context/AppContext';
+import { DescriptionStyle, Product, Subtitle, TitleStyle, useAppContext } from '../../../Context/AppContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Card, Container, SxProps, Typography } from '@mui/material';
 import { Box } from '@mui/joy';
@@ -55,12 +55,13 @@ const ProductCard = () => {
                     {product.images.length <= 0 ? '' : <SimpleSlider> {imgProduct(product.images)}</SimpleSlider>}
                 </Box>
                 <Box display={'flex'} flexDirection={'column'} sx={boxStyle}>
-                    <Typography variant="h6" gutterBottom sx={TitleStyle}>
+                    <Typography variant="body1" gutterBottom sx={TitleStyle}>
                         {product.title}
                     </Typography>
 
-                    <Typography variant="subtitle1" sx={{
-                        color: '#333',
+                    <Typography variant="body1" sx={{
+                        ...TitleStyle,
+                        fontSize: 16,
                         marginBottom: '5px'
                     }} >
                         {product.category.name}
@@ -69,7 +70,7 @@ const ProductCard = () => {
                         {product.description}
                     </Typography>
                     <Box width={'100%'} display={"flex"} justifyContent={"space-between"}>
-                        <Typography variant="h5" component={"div"} display={'block'} gutterBottom>
+                        <Typography variant="h5" component={"p"} display={'block'} gutterBottom>
                             {product.price}$
                         </Typography>
 

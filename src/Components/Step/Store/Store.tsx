@@ -1,4 +1,4 @@
-import { useAppContext } from '../../../Context/AppContext';
+import { StyleColors, Subtitle, useAppContext } from '../../../Context/AppContext';
 import { Box } from '@mui/joy';
 import { Button, Typography } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
@@ -20,7 +20,7 @@ const AllCategories = () => {
           borderLeft: ' 1px solid #ccc',
           borderRadius: '5px',
           '&:hover': {
-            backgroundColor: '#eee',
+            backgroundColor: StyleColors.bgHover,
           }
         }}
       >{category.name}</Button>
@@ -64,7 +64,7 @@ const Store = () => {
       }
     }>
       <Box sx={{
-        width: '20%'
+        width: 200
       }}>
         <Box
           sx={{
@@ -80,7 +80,7 @@ const Store = () => {
               margin: '5px',
               fontSize: '2rem'
             }} />
-          <Typography variant='h5'>
+          <Typography variant='body1' sx={Subtitle}>
 
             Categories
           </Typography>
@@ -89,7 +89,7 @@ const Store = () => {
         <AllCategories />
       </Box>
       <Box sx={{
-        width: '80%',
+        flex: 1
 
       }} >
         <Products />

@@ -38,7 +38,7 @@ const CartItemControls = ({ id }: { id: number }) => {
             >
                 <RemoveIcon fontSize="small" />
             </Button>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" component={'p'} gutterBottom>
                 {cartItem.filter(e => e.id === id)[0].quantity}
             </Typography>
             <Button

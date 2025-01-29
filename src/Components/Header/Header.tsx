@@ -14,7 +14,7 @@ import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled } from '@mui/material/styles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
-import { useAppContext } from '../../Context/AppContext';
+import { StyleColors, useAppContext } from '../../Context/AppContext';
 
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
@@ -72,22 +72,30 @@ const Header = () => {
           </Tabs>
         </Grid>
         <Grid>
-          {/* zmienić tab na link !!!!!*/}
           <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {/* <Typography level="h1">Mantine</Typography> */}
             <Tabs
               value={value}
               onChange={handleChange}
               centered
               aria-label="disabled tabs example"
+
               selectionFollowsFocus // strzałki automatycznie ładują przycisk po najechaniu
-            // orientation="vertical"
+              // orientation="vertical"
+              sx={{
+                color: StyleColors.colorNav
+              }}
             >
 
-              <Tab label="Home" value="" />
-              <Tab label="Store" value="Store" />
-              <Tab iconPosition="end" label="Cart" value="Cart" icon={
-                <StyledBadge badgeContent={totalQuantity} color='primary'>
+              <Tab component='a' label="Home" value="" sx={{
+                color: 'inherit'
+              }} />
+              <Tab component='a' label="Store" value="Store" sx={{
+                color: 'inherit'
+              }} />
+              <Tab component='a' iconPosition="end" label="Cart" value="Cart" sx={{
+                color: 'inherit'
+              }} icon={
+                <StyledBadge badgeContent={totalQuantity} color='primary' >
                   <ShoppingCartIcon />
                 </StyledBadge>} />
             </Tabs>
@@ -96,11 +104,12 @@ const Header = () => {
           </Box>
         </Grid>
         <Grid container>
-          <Button onClick={() => {
+          <Button component='a' onClick={() => {
             navigate('/Sing');
             setValue('');
           }} >Sing in</Button>
           <Button
+
             onClick={handleButtonClick}
             variant="outlined"
             color="neutral"

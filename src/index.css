@@ -1,3 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  border: none;
+  font-family: ubuntu, Arial, Helvetica, sans-serif;
+}
+
+
+:root {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  color-scheme: light dark;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #333;
+    --background-color-hover: #444;
+    --text-color: #eee;
+
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    h1 {
+      color: var(--text-color);
+    }
+
+    .css-1av6evo-MuiPaper-root-MuiCard-root {
+      background-color: var(--background-color);
+      color: var(--text-color);
+
+      p {
+        color: var(--text-color);
+      }
+    }
+
+    .css-1rhl27n-JoyButton-root {
+      background-color: var(--background-color);
+      color: var(--text-color);
+
+    }
+
+    .css-1rhl27n-JoyButton-root:hover {
+      background-color: var(--background-color-hover);
+    }
+
+    .css-stp9o6-MuiTabs-flexContainer {
+      background-color: var(--background-color);
+      color: var(--text-color);
+
+    }
+
+    .css-anwusi-MuiButtonBase-root-MuiTab-root.Mui-selected {
+      color: #62aff7;
+    }
+
+    .css-17xx9oo-MuiButtonBase-root-MuiTab-root.Mui-selected {
+      color: #62aff7;
+    }
+
+    .css-107y869-MuiButtonBase-root-MuiButton-root {
+      color: var(--text-color)
+    }
+
+    .css-107y869-MuiButtonBase-root-MuiButton-root:hover {
+      background-color: #444;
+    }
+  }
+
+
+}
+
+/* "MuiButton-root MuiButton-variantOutlined MuiButton-colorNeutral MuiButton-sizeMd css-1rhl27n-JoyButton-root */
+
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -12,11 +93,25 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
 /* } */
+/* 
 #root {
   max-width: 1400px;
   margin: 0 auto;
+}
 
 
+:root {
+  --header-color: #fff;
+  --background-color: #fafafa;
+  --text-color: #242424;
+  --placeholder-color: #808080;
+}
+
+:root.dark {
+  --header-color: #333;
+  --background-color: #242424;
+  --text-color: #fafafa;
+  --placeholder-color: #ddd;
 }
 
 * {
@@ -26,10 +121,25 @@
   list-style: none;
   background: none;
   border: none;
+  font-family: Nunito Sans, Arial, Helvetica, sans-serif;
   font-family: ubuntu, Arial, Helvetica, sans-serif;
 
-}
 
+  color-scheme: light dark;
+  background-color: var(--background-color);
+  /* color: var(--text-color); */
+/* fill: var(--text-color); */
+
+/* button {
+    height: fit-content;
+  } */
+
+/* header {
+    background-color: var(--header-color);
+  } */
+/* } */
+
+/* */
 /* a {
   font-weight: 500;
   color: #646cff;

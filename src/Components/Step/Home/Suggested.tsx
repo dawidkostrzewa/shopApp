@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { CardContent } from '@mui/material';
 import { CenterMode, SimpleSlider } from '../../Utils/Slider/Slide'
-import { CartStyle, useAppContext } from '../../../Context/AppContext';
+import { CartStyle, useAppContext, StyleColors } from '../../../Context/AppContext';
 import WrapImg from '../../Utils/Img/WrapImg';
 import { mapImgToComponents } from '../../Utils/Img/MapImgToComponents';
 
@@ -28,10 +28,11 @@ const Suggested = () => {
 
                     <CardContent>
                         <Typography
-                            variant="subtitle1"
+                            variant="body1"
                             sx={{
                                 margin: '5px 0 ',
-                                color: '#333'
+                                color: StyleColors.colorSubtitle
+
                             }}
                         >
                             {product.title}
@@ -61,9 +62,9 @@ const Suggested = () => {
                             }
                             sx={{
                                 borderRadius: '10px',
-                                backgroundColor: '#1871c2',
+                                backgroundColor: StyleColors.colorBtn,
                                 '&:hover': {
-                                    backgroundColor: '#185EA5',
+                                    backgroundColor: StyleColors.colorBtnHover,
                                 },
                             }}
                         >

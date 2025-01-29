@@ -1,5 +1,5 @@
 
-import { CartStyle, DescriptionStyle, TitleStyle, useAppContext } from '../../../Context/AppContext';
+import { CartStyle, DescriptionStyle, Subtitle, TitleStyle, useAppContext } from '../../../Context/AppContext';
 import { Box } from '@mui/joy';
 import { Button, Card, CardContent, Typography } from '@mui/material';
 import { SimpleSlider } from '../../Utils/Slider/Slide'
@@ -29,7 +29,7 @@ const Products = () => {
                     </WrapImg>
                     <CardContent>
                         <Typography
-                            variant="subtitle1"
+                            variant="body1"
                             sx={TitleStyle}
                         >
                             {product.title}
@@ -84,10 +84,8 @@ const Products = () => {
             flexWrap: 'wrap',
         }}>
             {wrapProduct.length !== 0 ? element : <Typography
-                variant="h5"
-                sx={{
-                    color: '#333'
-                }}
+                variant="body1"
+                sx={Subtitle}
             >
                 No products in this category
             </Typography>}

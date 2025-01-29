@@ -43,7 +43,7 @@ const Registration = () => {
                 autoComplete="off"
                 sx={BoxLogin}
             >
-                <Typography variant="h5" gutterBottom sx={{
+                <Typography variant="body1" gutterBottom sx={{
                     color: '#555'
                 }}>
                     Registration:
@@ -60,7 +60,7 @@ const Registration = () => {
                         )
                     }}
                 />
-                <FormControl error={passwordIsValid} sx={{ m: 1, width: '40ch' }} variant="outlined">
+                <FormControl error={passwordIsValid} sx={{ margin: '8px' }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
@@ -92,7 +92,7 @@ const Registration = () => {
                         label="Password"
                     />
                 </FormControl>
-                <FormControl error={passwordIsValid} sx={{ m: 1, width: '40ch' }} variant="outlined">
+                <FormControl error={passwordIsValid} sx={{ margin: '8px' }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
@@ -134,6 +134,7 @@ const Registration = () => {
                     }}
                 >
                     <Button
+                        component='a'
                         size="small"
                         variant="contained"
                         sx={{

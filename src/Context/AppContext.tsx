@@ -13,8 +13,9 @@ export const CartStyle: SxProps = {
 }
 
 export const TitleStyle: SxProps = {
+    fontSize: '20px',
     margin: '5px 0 ',
-    color: '#333'
+    color: '#333',
 }
 export const DescriptionStyle: SxProps = {
     color: 'text.secondary',
@@ -38,6 +39,46 @@ export const BoxLogin: SxProps = {
     borderRadius: '5px',
     '& .MuiTextField-root': { m: 1, width: '40ch' }
 }
+
+export const CartCategory: SxProps = {
+    width: '250px',
+    height: '400px',
+    borderRadius: 3,
+    padding: '30px 15px',
+    boxSizing: 'border-box',
+    overflow: 'hidden',
+    boxShadow: '0px 0px 10px 0.1px #eee',
+    margin: '20px auto',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+}
+
+export const Subtitle: SxProps = {
+    fontSize: '24px',
+    color: "#333"
+
+}
+
+export const StyleColors = {
+    // Text colors
+    colorText: '#333',
+    colorSubtitle: '#333',
+    colorDisabled: '#333',
+    colorNav: '#00000099',
+
+    // Background colors
+    bgPrimary: '#ffffff',
+    bgSecondary: '#f5f5f5',
+    bgHover: "#eee",
+    //Button 
+    colorBtn: '#1871c2',
+    colorBtnHover: '#185EA5'
+
+} as const;
+
+
 
 
 export type Product = {

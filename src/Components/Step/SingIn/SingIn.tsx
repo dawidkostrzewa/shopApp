@@ -40,7 +40,7 @@ const Sign = () => {
                             )
                         }}
                     />
-                    <FormControl sx={{ m: 1, width: '40ch' }} variant="outlined">
+                    <FormControl variant="outlined" sx={{ margin: '8px' }}>
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
@@ -77,6 +77,7 @@ const Sign = () => {
                         }}
                     >
                         <Button
+                            component='a'
                             size="small"
                             variant="contained"
                             sx={{

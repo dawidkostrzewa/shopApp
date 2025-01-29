@@ -17,6 +17,7 @@ const Cart = () => {
   const BasketObject = () => {
     return (
       cartItem.map((product) => {
+        console.log(product)
         return (
           <CardContent sx={{
             display: 'flex'
@@ -28,7 +29,7 @@ const Cart = () => {
                 height='100px'
                 width='100px'
                 image={product.images?.[0]}
-                alt=''
+                alt='Product thumbnail'
                 sx={{
                   display: 'block'
                 }}
@@ -37,11 +38,11 @@ const Cart = () => {
             <Box sx={
               {
                 flex: 1,
-                margin: '0 3%',
-                color: '#333'
+                margin: '0 15px',
+                color: '#333',
               }
             }>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" component={'p'} gutterBottom>
                 {product.title}
               </Typography>
               <Typography variant="body1" gutterBottom>
@@ -69,12 +70,12 @@ const Cart = () => {
       width: "70vw",
 
     }}>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" component={'p'} gutterBottom>
         Shopping Cart
       </Typography>
       <Card>
         {cartItem.length == 0 ?
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" component={'p'} gutterBottom>
             Your cart is empty.
           </Typography>
           : <><BasketObject /><Typography variant="body1" gutterBottom>

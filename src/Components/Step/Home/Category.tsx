@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Typography } from "@mui/material";
-import { useAppContext } from "../../../Context/AppContext";
+import { CartCategory, useAppContext } from "../../../Context/AppContext";
 import { CenterMode } from '../../Utils/Slider/Slide'
 
 
@@ -12,20 +12,8 @@ const Category = () => {
 
         return (
             <>  <Card sx={{
-                width: '250px',
-                height: '400px',
-                borderRadius: 3,
-                padding: '30px 15px',
-                boxSizing: 'border-box',
-                overflow: 'hidden',
-                boxShadow: '0px 0px 10px 0.1px #eee',
-                margin: '20px auto',
-                backgroundImage: `url(${category.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-
+                ...CartCategory,
+                backgroundImage: `url(${category.image})`
             }
             }>
                 <Typography variant="body1" sx={{
@@ -34,7 +22,7 @@ const Category = () => {
                 }} >
                     CATEGORY:
                 </Typography>
-                <Typography variant="h3" sx={{
+                <Typography variant="h3" component={"h2"} sx={{
                     color: '#eee',
                     flex: '1',
                     textShadow: ' 0 0 5px #777'

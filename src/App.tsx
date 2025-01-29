@@ -1,4 +1,5 @@
-
+// import './App.scss'
+// import { useColorScheme } from 'react-native';
 import Home from './Components/Step/Home/Home';
 import Store from './Components/Step/Store/Store';
 import Cart from './Components/Step/Cart/Cart';
