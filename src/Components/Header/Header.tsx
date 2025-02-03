@@ -30,6 +30,8 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 
 
 
+
+
 const Header = () => {
   const { cartItem } = useAppContext()
 
@@ -90,7 +92,7 @@ const Header = () => {
               }}
             >
 
-              <Tab component='a' href='' label="Home" value="" sx={{
+              <Tab component='a' label="Home" value="" sx={{
                 color: 'inherit'
               }} />
               <Tab component='a' label="Store" value="Store" sx={{
@@ -103,8 +105,6 @@ const Header = () => {
                   <ShoppingCartIcon />
                 </StyledBadge>} />
             </Tabs>
-
-
 
           </Box>
         </Grid>
