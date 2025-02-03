@@ -6,6 +6,7 @@ import { Button, Container, FormControl, IconButton, InputAdornment, InputLabel,
 import { useState } from 'react'
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { BoxLogin, ContainerLogin } from '../../../Context/AppContext';
+import Btn from '../../Utils/Btn/Btn';
 
 export type LoginData = {
     email: string;
@@ -76,26 +77,8 @@ const Sign = () => {
                             margin: '0 0 0 auto',
                         }}
                     >
-                        <Button
-                            component='a'
-                            size="small"
-                            variant="contained"
-                            sx={{
-                                textTransform: 'none',
-                            }}
-                            onClick={() => {
-                                navigate('/Registration');
-                            }} >Registration</Button>
-                        <Button
-                            size="small"
-                            variant="contained"
-                            sx={{
-                                textTransform: 'none',
-                                margin: '0 10px',
-                            }}
-                            onClick={() => {
-                                navigate('/Home');
-                            }} >Back to Home Page</Button>
+                        <Btn web={`/Registration`} >Registration</Btn>
+                        <Btn web={`/Home`} >Back to Home Page</Btn>
                         <Button
                             disableRipple
                             size="small"

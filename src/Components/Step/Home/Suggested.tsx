@@ -1,16 +1,15 @@
-import Button from '@mui/material/Button';
+
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom';
 import { CardContent } from '@mui/material';
 import { CenterMode, SimpleSlider } from '../../Utils/Slider/Slide'
 import { CartStyle, useAppContext, StyleColors } from '../../../Context/AppContext';
 import WrapImg from '../../Utils/Img/WrapImg';
 import { mapImgToComponents } from '../../Utils/Img/MapImgToComponents';
+import Btn from '../../Utils/Btn/Btn';
 
 
 const Suggested = () => {
-    const navigate = useNavigate();
     const { wrapProduct } = useAppContext()
 
     const element = wrapProduct.slice(0, 8).map((product) => {
@@ -54,22 +53,7 @@ const Suggested = () => {
                         <Typography noWrap sx={{ fontSize: '22px' }}>
                             {product.price} $
                         </Typography>
-                        <Button
-                            size="medium"
-                            variant="contained"
-                            onClick={() =>
-                                navigate(`/${product.id}`)
-                            }
-                            sx={{
-                                borderRadius: '10px',
-                                backgroundColor: StyleColors.colorBtn,
-                                '&:hover': {
-                                    backgroundColor: StyleColors.colorBtnHover,
-                                },
-                            }}
-                        >
-                            Learn More Now!
-                        </Button>
+                        <Btn web={`/${product.id}`} >Learn More Now!</Btn>
                     </CardContent >
                 </ Card >
 

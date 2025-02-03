@@ -3,8 +3,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, Grid } from '@mui/joy';
 import { Button, Container, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { BoxLogin, ContainerLogin } from '../../../Context/AppContext';
+import Btn from '../../Utils/Btn/Btn';
 
 
 export type LoginData = {
@@ -14,7 +14,6 @@ export type LoginData = {
 }
 
 const Registration = () => {
-    const navigate = useNavigate();
     const [loginData, setLoginData] = useState<LoginData>({
         email: '',
         password: '',
@@ -133,26 +132,8 @@ const Registration = () => {
                         margin: '0 0 0 auto',
                     }}
                 >
-                    <Button
-                        component='a'
-                        size="small"
-                        variant="contained"
-                        sx={{
-                            textTransform: 'none',
-                        }}
-                        onClick={() => {
-                            navigate('/Sing');
-                        }} >Sing in</Button>
-                    <Button
-                        size="small"
-                        variant="contained"
-                        sx={{
-                            textTransform: 'none',
-                            margin: '0 10px',
-                        }}
-                        onClick={() => {
-                            navigate('/Home');
-                        }} >Back to Home Page</Button>
+                    <Btn web={`/Sing`} >Sing in</Btn>
+                    <Btn web={`/Home`} >Back to Home Page</Btn>
                     <Button
                         disabled={passwordIsValid || loginData.password.length === 0 || loginData.email.length === 0}
                         disableRipple

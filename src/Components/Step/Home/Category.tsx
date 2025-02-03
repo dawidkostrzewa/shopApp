@@ -1,12 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import { Button, Card, Typography } from "@mui/material";
+
+import { Card, Typography } from "@mui/material";
 import { CartCategory, useAppContext } from "../../../Context/AppContext";
 import { CenterMode } from '../../Utils/Slider/Slide'
+import Btn from "../../Utils/Btn/Btn";
+import Box from '@mui/material/Box';
+
 
 
 const Category = () => {
     const { setSelectedCategories, categories } = useAppContext()
-    const navigate = useNavigate();
 
     const element = categories.map((category) => {
 
@@ -29,26 +31,15 @@ const Category = () => {
                 }} >
                     {category.name}
                 </Typography>
-                <Button
-                    size="medium"
-                    variant="contained"
-                    onClick={() => {
-                        navigate('/Store');
-                        setSelectedCategories(category.id)
+                <Box sx={{
+                    margin: '10px ',
+                }} onClick={() => {
+                    setSelectedCategories(category.id)
+                }} >
+                    <Btn web={`/Store`} >Go to store</Btn>
+                </Box>
 
-                    }}
-                    sx={{
-                        borderRadius: '10px',
-                        backgroundColor: '#1871c2',
-                        width: '150px',
-                        '&:hover': {
-                            backgroundColor: '#185EA5',
 
-                        },
-                    }}
-                >
-                    Go to store
-                </Button>
             </ Card >
             </ >
         );

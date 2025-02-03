@@ -1,20 +1,17 @@
 
 import { CartStyle, DescriptionStyle, Subtitle, TitleStyle, useAppContext } from '../../../Context/AppContext';
 import { Box } from '@mui/joy';
-import { Button, Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import { SimpleSlider } from '../../Utils/Slider/Slide'
-
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { useNavigate } from 'react-router-dom';
-
 import CartItemControls from '../../UpdateCart/CartItemControls';
 import CartItemAdd from '../../UpdateCart/CartItemAdd';
 import WrapImg from '../../Utils/Img/WrapImg';
 import { mapImgToComponents } from '../../Utils/Img/MapImgToComponents';
+import { BtnIcon } from '../../Utils/Btn/Btn';
 
 const Products = () => {
     const { cartItem, wrapProduct, } = useAppContext()
-    const navigate = useNavigate();
 
     const element = wrapProduct.map((product) => {
         return (
@@ -51,18 +48,11 @@ const Products = () => {
                     <CardContent
                         sx={{ display: 'flex', alignItems: 'center' }}
                     >
-                        <Button variant="contained" onClick={() =>
-                            navigate(`/${product.id}`)
-                        } sx={{
-                            padding: '5px',
-                            marginRight: '10px',
-                            minWidth: 'auto',
-                            background: '#17aabf',
-                        }}>
+                        <BtnIcon web={`/${product.id}`} >
                             <OpenInNewIcon sx={{
                                 fontSize: '1.3em'
-                            }} />
-                        </Button>
+                            }} /></BtnIcon>
+
                         {
                             cartItem.some(e => e.id === product.id) ?
                                 <CartItemControls id={product.id} />

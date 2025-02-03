@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-
 import Typography from '@mui/joy/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -15,6 +14,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled } from '@mui/material/styles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
 import { StyleColors, useAppContext } from '../../Context/AppContext';
+import Btn from '../Utils/Btn/Btn';
+
 
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
@@ -25,6 +26,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
     padding: '0 4px',
   },
 }));
+
 
 
 
@@ -47,6 +49,8 @@ const Header = () => {
     navigate(newValue);
     setValue(newValue);
   };
+
+
   return (
     <>
       <Grid
@@ -86,7 +90,7 @@ const Header = () => {
               }}
             >
 
-              <Tab component='a' label="Home" value="" sx={{
+              <Tab component='a' href='' label="Home" value="" sx={{
                 color: 'inherit'
               }} />
               <Tab component='a' label="Store" value="Store" sx={{
@@ -101,15 +105,12 @@ const Header = () => {
             </Tabs>
 
 
+
           </Box>
         </Grid>
         <Grid container>
-          <Button component='a' onClick={() => {
-            navigate('/Sing');
-            setValue('');
-          }} >Sing in</Button>
+          <Btn web={'/Sing'} >Sing in</Btn>
           <Button
-
             onClick={handleButtonClick}
             variant="outlined"
             color="neutral"
