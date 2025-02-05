@@ -47,7 +47,7 @@ const Header = () => {
     setIsNightMode(!isNightMode);
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: string) => {
     navigate(newValue);
     setValue(newValue);
   };

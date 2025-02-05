@@ -1,4 +1,4 @@
-import { DescriptionStyle, Product, Subtitle, TitleStyle, useAppContext } from '../../../Context/AppContext';
+import { DescriptionStyle, Product, TitleStyle, useAppContext } from '../../../Context/AppContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Card, Container, SxProps, Typography } from '@mui/material';
 import { Box } from '@mui/joy';
