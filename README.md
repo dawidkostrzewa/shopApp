@@ -5,7 +5,7 @@
 ![Screenshot of the app](./public/shopApp.png)
 
 ## Demo
-🌐 [Live Demo](demo_address)
+🌐 [Live Demo](https://j-a-r-e-k.github.io/shopApp/)
 
 ## English Description 🇬🇧
 
