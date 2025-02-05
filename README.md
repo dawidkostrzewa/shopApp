@@ -1,50 +1,74 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# Shop Application
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Screenshot of the app](./public/shopApp.png)
 
-## Expanding the ESLint configuration
+## Demo
+🌐 [Live Demo](demo_address)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## English Description 🇬🇧
 
-- Configure the top-level `parserOptions` property like this:
+An e-commerce application that allows users to browse and purchase products. It presents available inventory along with featured products. The app includes shopping cart functionality and a user authentication system with login and registration.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Features
+- Home page with recommended products and categories
+- Navigation by product categories
+- Detailed product cards with descriptions and photo galleries
+- Interactive shopping cart with order modification
+- User authentication system with login and registration
+- Responsive interface optimized for all devices
+- Automatic shopping cart content saving
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Project Structure
+- `AppContext`: Global application state and data management
+- `App`: Main component with routing configuration
+- `Header`: Header with main navigation
+- `Home`: Homepage with featured products and categories
+- `Store`: Product list view with filtering
+- `Cart`: Shopping cart management and order summary
+- `ProductCart`: Detailed product view with gallery
+- `SignIn`: Login and registration forms
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Technologies Used
+- TypeScript
+- React
+- Vite 
+- Material UI 
+- React Router 
+- Context API 
+- SASS 
+
+## Polski Opis 🇵🇱
+
+Aplikacja sklepu internetowego umożliwiająca przeglądanie i zakup produktów. Prezentuje użytkownikowi dostępny asortyment wraz z przykładowymi produktami. Zawiera funkcjonalności koszyka oraz system logowania i rejestracji użytkowników.
+
+
+## Funkcjonalności
+- Strona główna z rekomendowanymi produktami oraz kategoriami
+- Nawigacja według kategorii produktów
+- Szczegółowe karty produktów z opisami i galeriami zdjęć
+- Interaktywny koszyk z możliwością modyfikacji zamówienia
+- System logowania oraz rejestracji użytkowników
+- Responsywny interfejs dostosowany do wszystkich urządzeń
+
+
+## Struktura projektu
+- `AppContext`: Globalny stan aplikacji i zarządzanie danymi
+- `App`: Komponent główny z konfiguracją routingu
+- `Header`: Nagłówek z nawigacją główną
+- `Home`: Strona główna z produktami polecanymi i kategoriami
+- `Store`: Widok listy produktów z filtrowaniem
+- `Cart`: Zarządzanie koszykiem i podsumowanie zamówienia
+- `ProductCart`: Szczegółowy widok produktu z galerią
+- `SignIn`: Formularze logowania i rejestracji
+
+## Zastosowane technologie
+- TypeScript 
+- React 
+- Vite 
+- Material UI 
+- React Router 
+- Context API 
+- SASS 
