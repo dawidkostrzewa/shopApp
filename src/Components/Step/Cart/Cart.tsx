@@ -1,7 +1,6 @@
 import { useAppContext } from '../../../Context/AppContext'
 import { Card, CardContent, CardMedia, Container, Typography } from '@mui/material'
 import { Box } from '@mui/joy'
-
 import CartItemControls from '../../UpdateCart/CartItemControls';
 
 
@@ -39,7 +38,6 @@ const Cart = () => {
               {
                 flex: 1,
                 margin: '0 15px',
-                color: '#333',
               }
             }>
               <Typography variant="h6" component={'p'} gutterBottom>
@@ -79,7 +77,7 @@ const Cart = () => {
             Your cart is empty.
           </Typography>
           : <><BasketObject /><Typography variant="body1" gutterBottom>
-            ${totalSum}
+            Total:  ${totalSum}
           </Typography></>}
       </Card>
 

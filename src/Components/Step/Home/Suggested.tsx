@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { CardContent } from '@mui/material';
 import { CenterMode, SimpleSlider } from '../../Utils/Slider/Slide'
-import { CartStyle, useAppContext, StyleColors } from '../../../Context/AppContext';
+import { CartStyle, useAppContext } from '../../../Context/AppContext';
 import WrapImg from '../../Utils/Img/WrapImg';
 import { mapImgToComponents } from '../../Utils/Img/MapImgToComponents';
 import Btn from '../../Utils/Btn/Btn';
@@ -30,7 +30,7 @@ const Suggested = () => {
                             variant="body1"
                             sx={{
                                 margin: '5px 0 ',
-                                color: StyleColors.colorSubtitle
+                                // color: StyleColors.colorSubtitle
 
                             }}
                         >

@@ -2,8 +2,8 @@
      background-color: #0f6bcb;
      color: #fff;
      border-radius: 7px;
-     padding: 10px;
-     margin: 0 5px;
+     padding: 7px;
+     margin: 0 px;
      text-decoration: none;
      font-family: Helvetica, Arial, sans-serif;
      width: fit-content;
@@ -14,6 +14,7 @@
  }
 
  .btnIcon {
+     display: flex;
      color: #fff;
      background-color: #17aabf;
      padding: 3px;

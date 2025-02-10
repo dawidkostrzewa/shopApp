@@ -1,4 +1,4 @@
-import { StyleColors, Subtitle, useAppContext } from '../../../Context/AppContext';
+import { Subtitle, useAppContext } from '../../../Context/AppContext';
 import { Box } from '@mui/joy';
 import { Button, Typography } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
@@ -19,8 +19,9 @@ const AllCategories = () => {
           justifyContent: 'start',
           borderLeft: ' 1px solid #ccc',
           borderRadius: '5px',
+          color: 'secondary.main',
           '&:hover': {
-            backgroundColor: StyleColors.bgHover,
+            backgroundColor: 'secondary.dark',
           }
         }}
       >{category.name}</Button>
@@ -43,8 +44,9 @@ const AllCategories = () => {
           justifyContent: 'start',
           borderLeft: ' 1px solid #ccc',
           borderRadius: '5px',
+          color: 'secondary.main',
           '&:hover': {
-            backgroundColor: '#eee',
+            backgroundColor: 'secondary.dark',
           }
         }}
       >All</Button>
@@ -78,7 +80,8 @@ const Store = () => {
         >  <ManageSearchIcon
             sx={{
               margin: '5px',
-              fontSize: '2rem'
+              fontSize: '2rem',
+              color: 'text.primary'
             }} />
           <Typography variant='body1' sx={Subtitle}>
 

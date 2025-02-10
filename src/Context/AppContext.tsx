@@ -2,6 +2,14 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { fetchData } from '../Components/API/API';
 import { SxProps } from '@mui/material';
 
+const primary = {
+    main: '#1976d2',
+    light: '#42a5f5',
+    dark: '#1565c0',
+    contrastText: '#fff',
+};
+
+
 
 export const CartStyle: SxProps = {
     width: 300,
@@ -13,15 +21,17 @@ export const CartStyle: SxProps = {
 }
 
 export const TitleStyle: SxProps = {
-    fontSize: '20px',
     margin: '5px 0 ',
-    color: '#333',
+    whiteSpace: 'nowrap',
+    fontSize: `clamp(12px, 100%, 20px)`,
+    textShadow: '.1px .1px '
 }
 export const DescriptionStyle: SxProps = {
-    color: 'text.secondary',
+    // color: 'text.secondary',
     height: 100,
     overflow: 'hidden',
-    flex: 1
+
+
 }
 
 export const ContainerLogin: SxProps = {
@@ -57,24 +67,24 @@ export const CartCategory: SxProps = {
 
 export const Subtitle: SxProps = {
     fontSize: '24px',
-    color: "#333"
+    color: "text.primary"
 
 }
 
 export const StyleColors = {
     // Text colors
-    colorText: '#333',
-    colorSubtitle: '#333',
-    colorDisabled: '#333',
-    colorNav: '#00000099',
+    // colorText: '#333',
+    // colorSubtitle: '#333',
+    // colorDisabled: '#333',
+    // colorNav: '#00000099',
 
-    // Background colors
-    bgPrimary: '#ffffff',
-    bgSecondary: '#f5f5f5',
-    bgHover: "#eee",
-    //Button 
-    colorBtn: '#1871c2',
-    colorBtnHover: '#185EA5'
+    // // Background colors
+    // bgPrimary: '#ffffff',
+    // bgSecondary: '#f5f5f5',
+    // bgHover: "#eee",
+    // //Button 
+    // colorBtn: '#1871c2',
+    // colorBtnHover: '#185EA5'
 
 } as const;
 

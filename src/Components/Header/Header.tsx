@@ -1,50 +1,51 @@
 
-import { useState } from 'react';
-import Typography from '@mui/joy/Typography';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
-import Grid from '@mui/joy/Grid';
-import Button from '@mui/joy/Button';
 import BedtimeOutlinedIcon from '@mui/icons-material/BedtimeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { styled } from '@mui/material/styles';
-import Badge, { BadgeProps } from '@mui/material/Badge';
-import { StyleColors, useAppContext } from '../../Context/AppContext';
+import { useAppContext } from '../../Context/AppContext';
 import Btn from '../Utils/Btn/Btn';
+import Badge, { BadgeProps } from '@mui/material/Badge';
+import Grid from '@mui/joy/Grid';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import { styled, } from '@mui/material/styles';
+import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import { useColorScheme } from '@mui/material/styles';
 
 
 
 const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+
   '& .MuiBadge-badge': {
     right: -3,
     top: 13,
     border: `2px solid ${theme.palette.background.paper}`,
     padding: '0 4px',
+    // color: theme.palette.background.paper,
+    // backgroundColor: theme.palette.text.secondary
+
   },
 }));
 
 
-
-
-
-
 const Header = () => {
   const { cartItem } = useAppContext()
-
+  const { mode, setMode } = useColorScheme();
   const totalQuantity: number = cartItem
     .map((item) => item.quantity)
     .reduce((acc: number, curr: number) => acc + curr, 0);
 
   const [value, setValue] = React.useState('');
   const navigate = useNavigate();
-  const [isNightMode, setIsNightMode] = useState(false);
-
   const handleButtonClick = () => {
-    setIsNightMode(!isNightMode);
+    setMode(mode === 'light' ? 'dark' : 'light')
+
+
+
   };
 
   const handleChange = (_: React.SyntheticEvent, newValue: string) => {
@@ -57,14 +58,15 @@ const Header = () => {
     <>
       <Grid
         container
-        spacing={3}
+        spacing={1}
         sx={{
           margin: '0 auto',
           width: '95%',
           maxWidth: '1400px',
           justifyContent: 'space-between',
           alignItems: 'center',
-        }}
+        }
+        }
       >
         <Grid>
           <Tabs
@@ -74,7 +76,8 @@ const Header = () => {
               setValue('');
             }}
           >
-            <Typography level="h1">Mantine</Typography>
+            <Typography variant="h1"  >Mantine</Typography>
+
           </Tabs>
         </Grid>
         <Grid>
@@ -86,26 +89,17 @@ const Header = () => {
               aria-label="disabled tabs example"
 
               selectionFollowsFocus // strzałki automatycznie ładują przycisk po najechaniu
-              // orientation="vertical"
               sx={{
-                color: StyleColors.colorNav
+                color: 'inherit',
               }}
             >
-
-              <Tab component='a' label="Home" value="" sx={{
-                color: 'inherit'
-              }} />
-              <Tab component='a' label="Store" value="Store" sx={{
-                color: 'inherit'
-              }} />
-              <Tab component='a' iconPosition="end" label="Cart" value="Cart" sx={{
-                color: 'inherit'
-              }} icon={
-                <StyledBadge badgeContent={totalQuantity} color='primary' >
+              <Tab component='a' label="Home" value="" />
+              <Tab component='a' label="Store" value="Store" />
+              <Tab component='a' iconPosition="end" label="Cart" value="Cart" sx={{ minHeight: '50px', }} icon={
+                <StyledBadge badgeContent={totalQuantity} color='primary'>
                   <ShoppingCartIcon />
                 </StyledBadge>} />
             </Tabs>
-
           </Box>
         </Grid>
         <Grid container>
@@ -113,10 +107,10 @@ const Header = () => {
           <Button
             onClick={handleButtonClick}
             variant="outlined"
-            color="neutral"
+            color="inherit"
             sx={{ marginLeft: '10px' }}
           >
-            {isNightMode ? <BedtimeOutlinedIcon /> : <LightModeOutlinedIcon />}
+            {mode === 'light' ? <BedtimeOutlinedIcon /> : <LightModeOutlinedIcon />}
           </Button>
         </Grid>
       </Grid >

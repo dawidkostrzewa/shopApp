@@ -11,14 +11,13 @@
 :root {
   max-width: 1400px;
   margin: 0 auto;
-
-  color-scheme: light dark;
-  background-color: #ffffff;
-  color: #333333;
+  /* color-scheme: light dark; */
+  /* background-color: #ffffff;
+  color: #333333; */
 }
 
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background-color: #333;
     --background-color-hover: #444;
@@ -74,7 +73,12 @@
   }
 
 
-}
+} */
+
+
+
+
+
 
 /* "MuiButton-root MuiButton-variantOutlined MuiButton-colorNeutral MuiButton-sizeMd css-1rhl27n-JoyButton-root */
 
