@@ -77,10 +77,9 @@ const Header = () => {
             }}
           >
             <Typography variant="h1"  >Mantine</Typography>
-
           </Tabs>
         </Grid>
-        <Grid>
+        <Grid xs={12} sm='auto' sx={{ order: { xs: 2, sm: 0 } }}>
           <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
             <Tabs
               value={value}
@@ -102,7 +101,7 @@ const Header = () => {
             </Tabs>
           </Box>
         </Grid>
-        <Grid container>
+        <Grid container >
           <Btn web={'/Sing'} >Sing in</Btn>
           <Button
             onClick={handleButtonClick}

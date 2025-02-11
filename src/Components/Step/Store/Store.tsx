@@ -4,6 +4,56 @@ import { Button, Typography } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import Products from './Products';
 
+
+import * as React from 'react';
+import Menu from '@mui/material/Menu';
+import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
+
+
+function BasicMenu() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        sx={{
+          display: { xs: 'flex', sm: 'none' },
+
+        }}
+      >
+        <Typography variant='body1' color='text.secondary'>
+          Categories
+        </Typography>
+        <ArrowDropDownCircleOutlinedIcon color='action' />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+
+        <AllCategories />
+      </Menu>
+    </div>
+  );
+}
+
 const AllCategories = () => {
   const { setSelectedCategories, categories } = useAppContext()
 
@@ -34,6 +84,7 @@ const AllCategories = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
+
       }}>
       <Button
         onClick={() => {
@@ -62,11 +113,14 @@ const Store = () => {
       {
         display: 'flex',
         width: '100%',
-        margin: '10px'
+        margin: { xs: '0', sm: '10px' }
       }
     }>
+
+      {/*  */}
       <Box sx={{
-        width: 200
+        width: '200',
+        display: { xs: 'none', sm: 'block' }
       }}>
         <Box
           sx={{
@@ -95,6 +149,7 @@ const Store = () => {
         flex: 1
 
       }} >
+        <BasicMenu />
         <Products />
       </Box>
     </Box>

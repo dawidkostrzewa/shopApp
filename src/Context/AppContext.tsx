@@ -2,13 +2,6 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { fetchData } from '../Components/API/API';
 import { SxProps } from '@mui/material';
 
-const primary = {
-    main: '#1976d2',
-    light: '#42a5f5',
-    dark: '#1565c0',
-    contrastText: '#fff',
-};
-
 
 
 export const CartStyle: SxProps = {
@@ -27,11 +20,8 @@ export const TitleStyle: SxProps = {
     textShadow: '.1px .1px '
 }
 export const DescriptionStyle: SxProps = {
-    // color: 'text.secondary',
     height: 100,
     overflow: 'hidden',
-
-
 }
 
 export const ContainerLogin: SxProps = {
@@ -70,26 +60,6 @@ export const Subtitle: SxProps = {
     color: "text.primary"
 
 }
-
-export const StyleColors = {
-    // Text colors
-    // colorText: '#333',
-    // colorSubtitle: '#333',
-    // colorDisabled: '#333',
-    // colorNav: '#00000099',
-
-    // // Background colors
-    // bgPrimary: '#ffffff',
-    // bgSecondary: '#f5f5f5',
-    // bgHover: "#eee",
-    // //Button 
-    // colorBtn: '#1871c2',
-    // colorBtnHover: '#185EA5'
-
-} as const;
-
-
-
 
 export type Product = {
     id: number;

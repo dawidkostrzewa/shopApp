@@ -19,7 +19,11 @@ const Cart = () => {
         console.log(product)
         return (
           <CardContent sx={{
-            display: 'flex'
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            alignItems: 'center',
+            // borderBottom: '.5px solid #ccc '
+            boxShadow: '0px 0px 1px 0px',
 
           }}>
             <Box>
@@ -65,23 +69,31 @@ const Cart = () => {
       top: '20%',
       left: '50%',
       transform: "translateX(-50%)",
-      width: "70vw",
+      width: { xs: '95vw', sm: '70vw' },
 
     }}>
       <Typography variant="h6" component={'p'} gutterBottom>
         Shopping Cart
       </Typography>
-      <Card>
+      <Card sx={{
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
         {cartItem.length == 0 ?
           <Typography variant="h6" component={'p'} gutterBottom>
             Your cart is empty.
-          </Typography>
-          : <><BasketObject /><Typography variant="body1" gutterBottom>
+          </Typography >
+          : <><BasketObject /><Typography variant="body1" gutterBottom sx={{
+            padding: '10px',
+            order: { xs: -1, sm: 0 },
+            textAlign: { xs: 'center', sm: 'left' },
+
+          }}>
             Total:  ${totalSum}
           </Typography></>}
       </Card>
 
-    </Container>
+    </Container >
   )
 }
 
