@@ -5,7 +5,7 @@ import { Box, Grid } from "@mui/joy"
 import { Button, Container, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material"
 import { useState } from 'react'
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { BoxLogin, ContainerLogin } from '../../../Context/AppContext';
+import { BoxLogin, ContainerLogin, wrapTextField } from '../../../Context/AppContext';
 import Btn from '../../Utils/Btn/Btn';
 
 export type LoginData = {
@@ -40,8 +40,9 @@ const Sign = () => {
                                 }
                             )
                         }}
+                        sx={wrapTextField}
                     />
-                    <FormControl variant="outlined" sx={{ margin: '8px' }}>
+                    <FormControl variant="outlined" sx={wrapTextField}>
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
@@ -75,10 +76,11 @@ const Sign = () => {
                         container
                         sx={{
                             margin: '0 0 0 auto',
+                            width: '100%',
                         }}
                     >
                         <Btn web={`/Registration`} >Registration</Btn>
-                        <Btn web={`/Home`} >Back to Home Page</Btn>
+                        <Btn web={`/Home`}  >Back to Home Page</Btn>
                         <Button
                             disableRipple
                             size="small"

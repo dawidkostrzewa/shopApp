@@ -14,6 +14,7 @@ import CartItemAdd from '../../UpdateCart/CartItemAdd';
 const boxStyle: SxProps = {
     height: '370px',
     width: '550px',
+    maxWidth: '95vw',
     border: '1px #ccc solid',
     borderRadius: '10px',
     overflow: "hidden",
@@ -47,6 +48,7 @@ const ProductCard = () => {
             <Container sx={{
                 height: '70vh',
                 display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
                 justifyContent: 'space-around',
                 alignItems: 'center',
             }}>

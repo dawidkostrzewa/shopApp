@@ -26,18 +26,28 @@ export const DescriptionStyle: SxProps = {
 
 export const ContainerLogin: SxProps = {
     height: '70vh',
+    maxWidth: '95vw',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    padding: '5px'
 }
 
 export const BoxLogin: SxProps = {
     display: 'flex',
     flexDirection: 'column',
+    width: { xs: '100%', sm: 'auto' },
+    maxWidth: '95vw',
+    minWidth: { xs: 'auto', sm: '370px' },
     boxShadow: '0 0 10px 1px  #ddd',
-    padding: '20px',
+    padding: { xs: '15px 5px', sm: '20px' },
     borderRadius: '5px',
-    '& .MuiTextField-root': { m: 1, width: '40ch' }
+    overflow: 'hidden',
+    '& .MuiTextField-root': { width: '100%' }
+}
+
+export const wrapTextField: SxProps = {
+    width: '100%', padding: '5px 0'
 }
 
 export const CartCategory: SxProps = {

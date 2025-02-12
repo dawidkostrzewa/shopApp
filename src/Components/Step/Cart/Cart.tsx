@@ -22,9 +22,7 @@ const Cart = () => {
             display: 'flex',
             flexDirection: { xs: 'column', sm: 'row' },
             alignItems: 'center',
-            // borderBottom: '.5px solid #ccc '
             boxShadow: '0px 0px 1px 0px',
-
           }}>
             <Box>
               <CardMedia
@@ -80,7 +78,7 @@ const Cart = () => {
         flexDirection: 'column'
       }}>
         {cartItem.length == 0 ?
-          <Typography variant="h6" component={'p'} gutterBottom>
+          <Typography variant="h6" component={'p'} gutterBottom sx={{ margin: ' 10px' }}>
             Your cart is empty.
           </Typography >
           : <><BasketObject /><Typography variant="body1" gutterBottom sx={{

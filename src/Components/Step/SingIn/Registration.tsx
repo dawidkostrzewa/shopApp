@@ -3,7 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, Grid } from '@mui/joy';
 import { Button, Container, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
 import { useState } from 'react'
-import { BoxLogin, ContainerLogin } from '../../../Context/AppContext';
+import { BoxLogin, ContainerLogin, wrapTextField } from '../../../Context/AppContext';
 import Btn from '../../Utils/Btn/Btn';
 
 
@@ -12,6 +12,8 @@ export type LoginData = {
     password: string;
     confirmPassword: string;
 }
+
+
 
 const Registration = () => {
     const [loginData, setLoginData] = useState<LoginData>({
@@ -43,7 +45,7 @@ const Registration = () => {
                 sx={BoxLogin}
             >
                 <Typography variant="body1" gutterBottom sx={{
-                    color: '#555'
+                    color: 'text.secondary'
                 }}>
                     Registration:
                 </Typography>
@@ -58,8 +60,9 @@ const Registration = () => {
                             }
                         )
                     }}
+                    sx={wrapTextField}
                 />
-                <FormControl error={passwordIsValid} sx={{ margin: '8px' }} variant="outlined">
+                <FormControl error={passwordIsValid} sx={wrapTextField} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
@@ -91,7 +94,7 @@ const Registration = () => {
                         label="Password"
                     />
                 </FormControl>
-                <FormControl error={passwordIsValid} sx={{ margin: '8px' }} variant="outlined">
+                <FormControl error={passwordIsValid} sx={wrapTextField} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
