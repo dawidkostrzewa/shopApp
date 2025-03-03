@@ -2,8 +2,6 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { fetchData } from '../Components/API/API';
 import { SxProps } from '@mui/material';
 
-
-
 export const CartStyle: SxProps = {
     width: 300,
     height: 'fit-content',
@@ -93,8 +91,6 @@ export type CartProductBase = {
 export type CartItem = CartProductBase & {
     quantity: number
 };
-
-
 
 type AppContextProps = {
     name: string,

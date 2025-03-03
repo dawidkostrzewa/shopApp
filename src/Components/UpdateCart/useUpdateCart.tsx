@@ -1,10 +1,9 @@
-
 import { useAppContext, CartItem, CartProductBase } from "../../Context/AppContext";
-
 
 export type UpdateActon = CartProductBase & {
     updateAction: "PLUS" | "MINUS" | "DELETE",
-}
+};
+
 export const useUpdateCart = () => {
     const { cartItem, setCartItem } = useAppContext();
 

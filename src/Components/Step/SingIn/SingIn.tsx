@@ -45,6 +45,7 @@ const Sign = () => {
                     <FormControl variant="outlined" sx={wrapTextField}>
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
+                            data-testid="password-field"
                             id="outlined-adornment-password"
                             type={showPassword ? 'text' : 'password'}
                             onChange={(e) => {
