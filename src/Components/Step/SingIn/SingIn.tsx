@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
 import { Box, Grid } from "@mui/joy"
@@ -11,7 +10,8 @@ import Btn from '../../Utils/Btn/Btn';
 export type LoginData = {
     email: string;
     password: string;
-}
+};
+
 const Sign = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);

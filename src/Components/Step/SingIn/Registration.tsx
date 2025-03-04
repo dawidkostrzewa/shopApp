@@ -1,4 +1,3 @@
-
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, Grid } from '@mui/joy';
 import { Button, Container, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
@@ -153,8 +152,8 @@ const Registration = () => {
                         Submit
                     </Button>
                 </Grid>
-            </Box ></Container >
-
+            </Box>
+        </Container>
     )
 }
 

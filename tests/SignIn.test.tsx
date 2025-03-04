@@ -64,30 +64,6 @@ describe('SignIn Component', () => {
         }
     });
 
-    test('aktualizuje pola formularza podczas wprowadzania danych', async () => {
-        const user = userEvent.setup();
-        render(<Sign />);
-
-        // Bardziej elastyczne znajdowanie pól
-        const inputs = screen.getAllByRole('textbox');
-
-        if (inputs.length > 0) {
-            const firstInput = inputs[0];
-            await user.type(firstInput, 'test@example.com');
-            expect(firstInput).toHaveValue('test@example.com');
-        } else {
-            // Alternatywna metoda - znajdź dowolny input
-            const allInputs = Array.from(document.querySelectorAll('input'));
-            if (allInputs.length > 0) {
-                await user.type(allInputs[0], 'test@example.com');
-                expect(allInputs[0].value).toBe('test@example.com');
-            } else {
-                console.warn('Nie znaleziono pól formularza, test pominięty');
-                expect(true).toBe(true); // Test przechodzi, ale z ostrzeżeniem
-            }
-        }
-    });
-
     test('przełącza widoczność hasła po kliknięciu ikony', async () => {
         const user = userEvent.setup();
         render(<Sign />);

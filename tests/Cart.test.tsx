@@ -1,81 +1,43 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import Cart from '../src/Components/Step/Cart/Cart';
-import { CartItem, AppProvider } from '../src/Context/AppContext';
 import React from 'react';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
+import { useAppContext } from '../src/Context/AppContext';
 
-// Definiujemy funkcję mockLocalStorage bezpośrednio
-const mockLocalStorage = (initialData = {}) => {
-    const storageData = { ...initialData };
+// Zdefiniowane wcześniej przedmioty do koszyka, aby były dostępne podczas hoistingu vi.mock()
+const TEST_CART_ITEMS = [{
+    id: 1,
+    title: 'Test Product',
+    price: 99.99,
+    quantity: 2,
+    images: ['https://example.com/image.jpg']
+}];
 
-    const localStorageMock = {
-        getItem: vi.fn(key => {
-            return storageData[key] ? JSON.stringify(storageData[key]) : null;
-        }),
-        setItem: vi.fn((key, value) => {
-            storageData[key] = JSON.parse(value);
-        }),
-        removeItem: vi.fn(key => {
-            delete storageData[key];
-        }),
-        clear: vi.fn(() => {
-            Object.keys(storageData).forEach(key => {
-                delete storageData[key];
-            });
-        })
+// Prostszy mock dla localStorage
+const mockLocalStorage = () => {
+    const store = {};
+    return {
+        getItem: vi.fn(key => store[key] || null),
+        setItem: vi.fn((key, value) => { store[key] = value; }),
+        removeItem: vi.fn(key => { delete store[key]; }),
+        clear: vi.fn(() => { Object.keys(store).forEach(key => delete store[key]); })
     };
-
-    Object.defineProperty(window, 'localStorage', {
-        value: localStorageMock,
-        writable: true
-    });
-
-    return localStorageMock;
 };
 
-// Mock dla react-router-dom - bezpośrednio
+// Globalne mocki
+beforeEach(() => {
+    vi.clearAllMocks();
+    Object.defineProperty(window, 'localStorage', { value: mockLocalStorage(), writable: true });
+});
+
+// Mock dla react-router-dom
 vi.mock('react-router-dom', () => ({
     useNavigate: () => vi.fn(),
     useLocation: () => ({ pathname: '/Cart' }),
-    Link: ({ children, to }: { children: React.ReactNode, to: string }) => (
-        <a href={to} data-testid={`link-${to}`}>{children}</a>
-    )
+    Link: ({ children, to }) => <a href={to} data-testid={`link-${to}`}>{children}</a>
 }));
 
-// Mock dla AppContext - przenosimy dane bezpośrednio do funkcji
-vi.mock('../src/Context/AppContext', async () => {
-    const originalModule = await vi.importActual('../src/Context/AppContext');
-
-    // Dane testowe wewnątrz funkcji mocka
-    const mockCartItems = [
-        {
-            id: 1,
-            title: 'Test Product',
-            price: 99.99,
-            quantity: 2,
-            images: ['https://example.com/image.jpg']
-        }
-    ];
-
-    return {
-        ...originalModule,
-        useAppContext: vi.fn().mockReturnValue({
-            cartItem: mockCartItems,
-            setCartItem: vi.fn(),
-            name: 'Test User',
-            setUserName: vi.fn(),
-            selectedCategories: 0,
-            setSelectedCategories: vi.fn(),
-            categories: [],
-            setCategories: vi.fn(),
-            wrapProduct: [],
-            setWrapProduct: vi.fn()
-        }),
-        AppProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>
-    };
-});
-
-// Mock dla API - zawsze zwracaj dane dla koszyka
+// Mock dla API
 vi.mock('../src/Components/API/API', () => ({
     fetchData: vi.fn().mockImplementation((endpoint) => {
         if (endpoint === 'products') {
@@ -94,189 +56,116 @@ vi.mock('../src/Components/API/API', () => ({
     })
 }));
 
-describe('Cart Component', () => {
-    let emptyCartItems: CartItem[];
+// Mock dla AppContext - importujemy i mockujemy na górze pliku
+vi.mock('../src/Context/AppContext', () => ({
+    useAppContext: vi.fn().mockReturnValue({
+        cartItem: [],
+        setCartItem: vi.fn(),
+        name: 'Test User',
+        setUserName: vi.fn(),
+        selectedCategories: 0,
+        setSelectedCategories: vi.fn(),
+        categories: [],
+        setCategories: vi.fn(),
+        wrapProduct: [],
+        setWrapProduct: vi.fn()
+    })
+}));
 
+describe('Cart Component', () => {
+    // Globalne mocki
     beforeEach(() => {
         vi.clearAllMocks();
-        emptyCartItems = [];
-        mockLocalStorage({
-            cartItems: []
+        Object.defineProperty(window, 'localStorage', { value: mockLocalStorage(), writable: true });
+
+        // Resetowanie mocka useAppContext do domyślnych wartości
+        vi.mocked(useAppContext).mockReturnValue({
+            cartItem: [],
+            setCartItem: vi.fn(),
+            name: 'Test User',
+            setUserName: vi.fn(),
+            selectedCategories: 0,
+            setSelectedCategories: vi.fn(),
+            categories: [],
+            setCategories: vi.fn(),
+            wrapProduct: [],
+            setWrapProduct: vi.fn()
         });
     });
 
-    test('renderuje pusty koszyk', async () => {
-        // Mock dla AppContext tylko dla tego testu
-        vi.mock('../src/Context/AppContext', async () => {
-            const originalModule = await vi.importActual('../src/Context/AppContext');
-            
-            return {
-                ...originalModule,
-                useAppContext: vi.fn().mockReturnValue({
-                    cartItem: [],
-                    setCartItem: vi.fn(),
-                    name: 'Test User',
-                    setUserName: vi.fn(),
-                    selectedCategories: 0,
-                    setSelectedCategories: vi.fn(),
-                    categories: [],
-                    setCategories: vi.fn(),
-                    wrapProduct: [],
-                    setWrapProduct: vi.fn()
-                })
-            };
-        });
+    // Pomocnicza funkcja do sprawdzania, czy znajdziemy element o podanym tekście
+    const hasText = (text) => {
+        return screen.queryByText(new RegExp(text, 'i')) !== null;
+    };
 
+    // Pomocnicza funkcja do sprawdzania, czy UI zawiera jakiekolwiek elementy produktu
+    const hasProductElements = () => {
+        const hasProductTitle = screen.queryByText('Test Product') !== null;
+        const hasProductPrice = screen.queryByText(/99\.99/) !== null;
+        const hasImages = screen.queryAllByRole('img').length > 0;
+
+        // Dla elementów, które trudno znaleźć przez role/text, używamy testId
+        const hasCardElements = screen.queryAllByTestId(/^cart-item/).length > 0;
+
+        return hasProductTitle || hasProductPrice || hasImages || hasCardElements;
+    };
+
+    test('renderuje pusty koszyk', async () => {
+        // Domyślnie ustawiony pusty koszyk
         render(<Cart />);
-        
-        // Weryfikacja pustego koszyka - elastyczne podejście
+
         await waitFor(() => {
-            const emptyMessage = screen.queryByText(/empty/i) || 
-                                 screen.queryByText(/pusty/i) ||
-                                 screen.queryByText(/brak/i) ||
-                                 screen.queryByText(/no items/i);
-            
-            // Jeśli nie ma komunikatu o pustym koszyku, sprawdźmy czy po prostu nie ma produktów
-            const anyProducts = screen.queryByText(/Test Product/i);
-            
-            expect(emptyMessage || !anyProducts).toBeTruthy();
+            const emptyCartIndicator =
+                screen.queryByText(/empty/i) ||
+                screen.queryByText(/pusty/i) ||
+                screen.queryByText(/brak/i) ||
+                screen.queryByText(/no items/i);
+
+            expect(emptyCartIndicator !== null || !hasProductElements()).toBeTruthy();
         });
     });
 
     test('renderuje produkty w koszyku', async () => {
-        // Mock dla AppContext tylko dla tego testu
-        vi.mock('../src/Context/AppContext', async () => {
-            const originalModule = await vi.importActual('../src/Context/AppContext');
-            
-            // Dane testowe
-            const mockCartItems = [
-                {
-                    id: 1,
-                    title: 'Test Product',
-                    price: 99.99,
-                    quantity: 2,
-                    images: ['https://example.com/image.jpg']
-                }
-            ];
-            
-            return {
-                ...originalModule,
-                useAppContext: vi.fn().mockReturnValue({
-                    cartItem: mockCartItems,
-                    setCartItem: vi.fn(),
-                    name: 'Test User',
-                    setUserName: vi.fn(),
-                    selectedCategories: 0,
-                    setSelectedCategories: vi.fn(),
-                    categories: [],
-                    setCategories: vi.fn(),
-                    wrapProduct: [],
-                    setWrapProduct: vi.fn()
-                })
-            };
+        // Ustawiamy koszyk z przedmiotami
+        vi.mocked(useAppContext).mockReturnValue({
+            cartItem: TEST_CART_ITEMS,
+            setCartItem: vi.fn(),
+            name: 'Test User',
+            setUserName: vi.fn(),
+            selectedCategories: 0,
+            setSelectedCategories: vi.fn(),
+            categories: [],
+            setCategories: vi.fn(),
+            wrapProduct: [],
+            setWrapProduct: vi.fn()
         });
 
-        // Czyścimy przeglądarki przed testem
-        document.body.innerHTML = '';
-        
         // Renderujemy komponent
-        const { container } = render(<Cart />);
-        
-        // Bardziej szczegółowe debugowanie i weryfikacja
+        render(<Cart />);
+
         await waitFor(() => {
-            // Sprawdzamy czy jakikolwiek element zawiera tekst produktu lub ceny
-            const hasProductContent = Array.from(container.querySelectorAll('*'))
-                .some(el => {
-                    const content = el.textContent || '';
-                    return (
-                        content.includes('Test Product') || 
-                        content.includes('99.99') ||
-                        content.includes('2') // quantity
-                    );
-                });
-            
-            // Wypisujemy całą zawartość kontenera do debugowania
-            // console.log('Container content:', container.innerHTML);
-            
-            // Sprawdzamy czy są jakiekolwiek elementy DOM które mogą reprezentować produkt
-            const cardElements = container.querySelectorAll('.MuiCard-root, .cart-item, [data-testid*="cart-item"]');
-            const gridElements = container.querySelectorAll('.MuiGrid-item');
-            const imgElements = container.querySelectorAll('img');
-            
-            // Oczekujemy, że przynajmniej jeden z warunków będzie spełniony
-            const hasProductElements = hasProductContent || 
-                                      cardElements.length > 0 || 
-                                      gridElements.length > 0 ||
-                                      imgElements.length > 0;
-            
-            expect(hasProductElements).toBeTruthy();
-        }, { timeout: 3000 });  // Zwiększamy timeout dla pewności
+            expect(hasProductElements()).toBeTruthy();
+        }, { timeout: 3000 });
     });
 
     test('obsługuje błędy ładowania danych', async () => {
         // Przygotowujemy mock do wyrzucenia błędu
         const { fetchData } = await import('../src/Components/API/API');
         vi.mocked(fetchData).mockRejectedValueOnce(new Error('Failed to load data'));
-        
-        // Mock dla AppContext
-        vi.mock('../src/Context/AppContext', async () => {
-            const originalModule = await vi.importActual('../src/Context/AppContext');
-            
-            return {
-                ...originalModule,
-                useAppContext: vi.fn().mockReturnValue({
-                    cartItem: [],
-                    setCartItem: vi.fn(),
-                    name: 'Test User',
-                    setUserName: vi.fn(),
-                    selectedCategories: 0,
-                    setSelectedCategories: vi.fn(),
-                    categories: [],
-                    setCategories: vi.fn(),
-                    wrapProduct: [],
-                    setWrapProduct: vi.fn()
-                })
-            };
-        });
 
-        // Renderowanie z podchwytywanym błędem
+        // Tłumimy console.error dla czystości testów
         const originalConsoleError = console.error;
         console.error = vi.fn();
-        
-        // W przypadku błędu, test nie powinien się załamać
+
         try {
             render(<Cart />);
-            
-            // Bardziej elastyczne podejście - na stronie powinien być jakiś sygnał błędu
+
             await waitFor(() => {
-                // Szukamy każdego możliwego sygnału błędu
-                const anyErrorElement = 
-                    document.querySelector('[role="alert"]') || 
-                    document.querySelector('.error') ||
-                    Array.from(document.querySelectorAll('*')).find(el => 
-                        el.textContent?.includes('error') || 
-                        el.textContent?.includes('Error') || 
-                        el.textContent?.includes('failed') ||
-                        el.textContent?.includes('Failed') ||
-                        el.textContent?.includes('błąd') ||
-                        el.textContent?.includes('Błąd') ||
-                        el.textContent?.includes('problem') ||
-                        el.textContent?.includes('Problem')
-                    );
-                
-                // Jeśli nie znaleźliśmy żadnego elementu błędu, sprawdźmy czy komponent w ogóle się wyrenderował
-                if (!anyErrorElement) {
-                    // Jeśli komponent Cart w ogóle się wyrenderował, uznajemy że test przeszedł
-                    // (w niektórych implementacjach błąd może spowodować po prostu brak renderowania)
-                    expect(document.body.textContent).not.toBe('');
-                } else {
-                    expect(true).toBe(true);
-                }
+                // Sprawdzamy czy komponent się wyrenderował pomimo błędu
+                // Użyj queryAllByText zamiast queryByText, aby uniknąć błędu z wieloma elementami
+                const textElements = screen.queryAllByText(/.+/);
+                expect(textElements.length).toBeGreaterThan(0);
             }, { timeout: 1000 });
-        } catch (error) {
-            // Jeśli renderowanie prowadzi do błędu, również uznajemy test za zdany
-            // ponieważ to jest rodzaj obsługi błędu (poprzez wyrzucenie wyjątku)
-            expect(true).toBe(true);
         } finally {
             console.error = originalConsoleError;
         }
